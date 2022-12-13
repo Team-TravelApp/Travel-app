@@ -47,9 +47,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     "whitenoise.runserver_nostatic",
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     'rest_framework',
     'django_countries'
+=======
+>>>>>>> a237d81af1574be6344bf3e29d3b0cfc8e631b86
     'travel',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -143,7 +147,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
-AUTH_USER_MODEL = 'travel.User'
+AUTH_USER_MODEL = 'travel.CustomUser'
 
 if not DEBUG: 
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
