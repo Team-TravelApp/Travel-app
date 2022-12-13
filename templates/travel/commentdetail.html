@@ -1,0 +1,13 @@
+{% for comment in comments %}
+
+<div class="comments">
+    <h3>
+      {{ comment.comment_owner }}
+    </h3>
+    <h3>
+        {{ comment.created_at }}
+      </h3>
+    {{ comment.commenttext }}
+</div>
+
+{% endfor %}

@@ -20,5 +20,19 @@ class AttractionPost(models.Model):
         MinValueValidator(1),
     ]
 )
+
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model): 
+    comment_owner = models.ForeignKey(User,on_delete=models.CASCADE, related_name = 'comments')
+    attraction = models.ForeignKey(Attraction,on_delete=models.CASCADE, related_name = 'comments')
+    commenttext = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.text} by:{self.comment_owner} on {self.attraction}'
+
+    class Meta:
+        ordering = ['created_at']
