@@ -47,13 +47,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     "whitenoise.runserver_nostatic",
     'django.contrib.staticfiles',
-<<<<<<< HEAD
-    'rest_framework',
-    'django_countries'
-=======
->>>>>>> a237d81af1574be6344bf3e29d3b0cfc8e631b86
     'travel',
     'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
 ]
 
 MIDDLEWARE = [
@@ -147,7 +144,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
-AUTH_USER_MODEL = 'travel.CustomUser'
+AUTH_USER_MODEL = 'travel.User'
 
 if not DEBUG: 
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -157,4 +154,14 @@ if env("RENDER"):
     DJANGO_SUPERUSER_USERNAME=env("DJANGO_SUPERUSER_USERNAME") 
     DJANGO_SUPERUSER_PASSWORD=env("DJANGO_SUPERUSER_PASSWORD") 
     DJANGO_SUPERUSER_EMAIL=env("DJANGO_SUPERUSER_EMAIL")
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        ),
+}   
+SIMPLE_JWT = {
+   'AUTH_HEADER_TYPES': ('JWT',),
+} 
 

@@ -8,21 +8,6 @@ from django.core.exceptions import ValidationError
 class CustomUser(AbstractUser):
     pass
 
-class AttractionPost(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE),
-    title = models.CharField(max_length=200),
-    country = models.CountryField(blank_label='(select country'),
-    description = models.TextField(blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    interest_rating = models.IntegerField(default=1,
-    validators = [
-        MaxValueValidator(10),
-        MinValueValidator(1),
-    ])
-
-    def __str__(self):
-        return self.title
-
 def __str__(self):
     return self.username
 
@@ -30,7 +15,7 @@ class Attraction(models.Model):
     pass
 
 class Comment(models.Model): 
-    comment_owner = models.ForeignKey(CustomUser,on_delete=models.CASCADE, related_name = 'comments')
+    comment_owner = models.ForeignKey(User,on_delete=models.CASCADE, related_name = 'comments')
     attraction = models.ForeignKey(Attraction,on_delete=models.CASCADE, related_name = 'comments')
     commenttext = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
