@@ -18,8 +18,7 @@ class AttractionPost(models.Model):
     validators = [
         MaxValueValidator(10),
         MinValueValidator(1),
-    ]
-)
+    ])
 
     def __str__(self):
         return self.title
