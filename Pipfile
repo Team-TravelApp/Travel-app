@@ -11,6 +11,8 @@ psycopg2-binary = "*"
 django-environ = "*"
 whitenoise = "*"
 gunicorn = "*"
+djoser = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 
