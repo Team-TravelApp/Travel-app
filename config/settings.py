@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
+    'django_countries',
 ]
 
 MIDDLEWARE = [
@@ -90,8 +91,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'travel',
+        'USER': 'travel',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
@@ -141,7 +145,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
-AUTH_USER_MODEL = 'travel.CustomUser'
+AUTH_USER_MODEL = 'travel.User'
 
 if not DEBUG: 
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
