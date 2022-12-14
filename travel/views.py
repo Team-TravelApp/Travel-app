@@ -1,11 +1,13 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Comment
-from .forms import CommentForm
+from django.template.defaultfilters import slugify
+from .models import Comment, AttractionPost
+from .forms import CommentForm, AttractionPostForm
+from taggit.models import Tag
 
 
 def comment_detail(request, slug):
     template_name = 'post_detail.html'
-    post = get_object_or_404(Post, slug=slug)
+    post = get_object_or_404(AttractionPost, slug=slug)
     comments = post.comments.filter(active=True)
     new_comment = None
     if request.method == 'POST':
@@ -18,3 +20,39 @@ def comment_detail(request, slug):
         comment_form = CommentForm()
 
     return render(request, template_name, {'post': post, 'comment_form': comment_form})
+
+
+def tag_home(request):
+    posts = AttractionPost.objects.order_by('-published')
+    # Show most common tags
+    common_tags = AttractionPost.tags.most_common()[:4]
+    form = AttractionPostForm(request.POST)
+    if form.is_valid():
+        newpost = form.save(commit=False)
+        newpost.slug = slugify(newpost.title)
+        newpost.save()
+        form.save_m2m()
+
+    
+    context = {
+        'posts':posts,
+        'common_tags':common_tags,
+        'form':form,
+    }
+    return render(request,'index.html', context)
+
+
+def tag_detail(request, slug):
+    post = get_object_or_404(AttractionPost, slug=slug)
+    return render(request, 'detail.html', {'post':post})
+
+
+def tagged(request,slug):
+    tag = get_object_or_404(Tag, slug=slug)
+    # filter posts by tag name
+    posts = AttractionPost.objects.filter(tags=tag)
+    context = {
+        'tag':tag,
+        'posts':posts,
+    }
+    return render(request, 'index.html', context)
