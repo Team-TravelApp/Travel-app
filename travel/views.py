@@ -5,6 +5,7 @@ from .forms import CommentForm, AttractionPostForm
 from taggit.models import Tag
 
 
+
 def comment_detail(request, slug):
     template_name = 'post_detail.html'
     post = get_object_or_404(AttractionPost, slug=slug)
@@ -56,3 +57,8 @@ def tagged(request,slug):
         'posts':posts,
     }
     return render(request, 'index.html', context)
+
+def index(request): 
+    attractions = AttractionPost.objects.all()
+    return render(request, 'travel/index.html', {'attractions': attractions})
+

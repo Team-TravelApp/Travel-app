@@ -16,6 +16,7 @@ djangorestframework-simplejwt = "*"
 django-countries = "*"
 django-taggit = "*"
 
+
 [dev-packages]
 
 [requires]
