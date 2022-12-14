@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser, Attraction, Comment
+from .models import CustomUser, AttractionPost, Comment
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 
 class CustomUserAdmin(UserAdmin):
@@ -11,5 +11,5 @@ class CustomUserAdmin(UserAdmin):
 
 # Register your models here.
 admin.site.register(CustomUser, CustomUserAdmin)
-admin.site.register(Attraction)
+admin.site.register(AttractionPost)
 admin.site.register(Comment)

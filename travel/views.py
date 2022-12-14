@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Comment
+from .models import Comment, AttractionPost
 from .forms import CommentForm
 
 
@@ -18,3 +18,7 @@ def comment_detail(request, slug):
         comment_form = CommentForm()
 
     return render(request, template_name, {'post': post, 'comment_form': comment_form})
+
+def index(request): 
+    attractions = AttractionPost.objects.all()
+    return render(request, 'travel/index.html', {'attractions': attractions})
