@@ -13,6 +13,7 @@ whitenoise = "*"
 gunicorn = "*"
 djoser = "*"
 djangorestframework-simplejwt = "*"
+django-countries = "*"
 
 [dev-packages]
 
