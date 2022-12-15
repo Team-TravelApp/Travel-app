@@ -1,5 +1,5 @@
 from django import forms
-from .models import Comment, CustomUser
+from .models import Comment, CustomUser, AttractionPost
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 
@@ -22,3 +22,18 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ("username", "email")
+
+
+class AttractionPostForm(forms.ModelForm):
+    class Meta:
+        model = AttractionPost
+        fields = [
+            'user',
+            'title',
+            'country',
+            'description',
+            'interest_rating',
+            'tags'
+            
+        ]
+        

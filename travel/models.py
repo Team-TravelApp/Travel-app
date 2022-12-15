@@ -3,6 +3,8 @@ from django.contrib.auth.models import AbstractUser
 from django_countries.fields import CountryField
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
+from taggit.managers import TaggableManager
+
 
 # Create your models here.
 class CustomUser(AbstractUser):
@@ -16,7 +18,11 @@ class AttractionPost(models.Model):
     title = models.CharField(max_length=200)
     country = CountryField(blank_label='(select country)')
     description = models.TextField(blank=True)
+    tags = TaggableManager()
     created_at = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(unique=True, max_length=100)
+    
+
     interest_rating = models.IntegerField(default=1,
     validators = [
         MaxValueValidator(10),
