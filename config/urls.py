@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from travel import views
+from api.router import router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,8 +26,10 @@ urlpatterns = [
     path('', views.index, name="home"),
     path('', views.tag_home, name="home"),
     path('post/<slug:slug>/', views.tag_detail, name="detail"),
-    path('homepage/', views.AttractionPostView.as_view()),
-    path('homepage/<int:pk>/', views.AttractionDetailView.as_view()),
+    
+    path('api/', include(router.urls)),
+    path("", include("api.urls")),
+
 
 ]
 
