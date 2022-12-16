@@ -3,7 +3,7 @@ from travel.models import AttractionPost, Comment
 from rest_framework.viewsets import ModelViewSet
 from django.db.models import Q
 from django.db.models import Count
-from rest_framework.generics import ListCreateAPIView, get_object_or_404
+from rest_framework.generics import ListCreateAPIView, get_object_or_404, ListAPIView
 
 
 class AttractionPost(ModelViewSet):
@@ -60,3 +60,10 @@ class CommentListCreateView(ListCreateAPIView):
         comment = get_object_or_404(Comment, pk=self.kwargs["comment_pk"])
         serializer.save(user=self.request.user, comment=comment)
         
+class MyComments(ListAPIView):
+    #This is the view for a user to show there own comments.
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+    def get_queryset(self):
+        return Comment.objects.filter(user=self.request.user)        
