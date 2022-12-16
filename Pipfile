@@ -15,7 +15,7 @@ djoser = "*"
 djangorestframework-simplejwt = "*"
 django-countries = "*"
 django-taggit = "*"
-
+django-extensions = "*"
 
 [dev-packages]
 

@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'travel',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_extensions',
     'djoser',
     'django_countries',
     'taggit',
