@@ -2,8 +2,9 @@ from django.shortcuts import render, get_object_or_404
 from django.template.defaultfilters import slugify
 from .models import Comment, AttractionPost
 from .forms import CommentForm, AttractionPostForm
+from rest_framework import generics
 from taggit.models import Tag
-
+from .serializers import AttractionPostSerializer
 
 
 def comment_detail(request, slug):
@@ -62,3 +63,14 @@ def index(request):
     attractions = AttractionPost.objects.all()
     return render(request, 'travel/index.html', {'attractions': attractions})
 
+
+class AttractionPostView(generics.ListCreateAPIView):
+    queryset = AttractionPost.objects.all()
+    order_fields = ['created_at']
+    serializer_class = AttractionPostSerializer
+
+
+class AttractionDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = AttractionPost.objects.all()
+    serializer_class = AttractionPostSerializer
+    
