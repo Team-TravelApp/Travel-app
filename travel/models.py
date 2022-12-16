@@ -39,9 +39,12 @@ class Comment(models.Model):
     commenttext = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
-    def __str__(self):
-        return f'{self.text} by:{self.comment_owner} on {self.attraction}'
+class Favorite(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name = 'favorites')
+    attraction = models.ForeignKey(AttractionPost, on_delete=models.CASCADE, related_name ='favorites')    
 
-    class Meta:
-        ordering = ['created_at']
+    def __str__(self):
+        return self.attraction.country
+
+    
 
