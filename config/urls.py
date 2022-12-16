@@ -28,7 +28,7 @@ urlpatterns = [
     path('post/<slug:slug>/', views.tag_detail, name="detail"),
     
     path('api/', include(router.urls)),
-    path("", include("api.urls")),
+    # path("", include("api.urls")),
 
 
 ]

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..travel.models import AttractionPost
+from travel.models import AttractionPost
 
 
 class AttractionPostSerializer(serializers.ModelSerializer):
