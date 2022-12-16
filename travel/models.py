@@ -10,19 +10,18 @@ from taggit.managers import TaggableManager
 class CustomUser(AbstractUser):
     pass
 
+
 def __str__(self):
     return self.username
+
 
 class AttractionPost(models.Model): 
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     country = CountryField(blank_label='(select country)')
     description = models.TextField(blank=True)
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    slug = models.SlugField(unique=True, max_length=100)
-    
-
     interest_rating = models.IntegerField(default=1,
     validators = [
         MaxValueValidator(10),
