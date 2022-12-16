@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'djoser',
     'django_countries',
     'taggit',
+    'api',
 ]
 
 MIDDLEWARE = [
