@@ -35,7 +35,7 @@ class AttractionPost(models.Model):
 
 class Comment(models.Model): 
     comment_owner = models.ForeignKey(CustomUser,on_delete=models.CASCADE, related_name = 'comments')
-    attraction = models.ForeignKey(AttractionPost,on_delete=models.CASCADE, related_name = 'comments')
+    attractionpost = models.ForeignKey(AttractionPost,on_delete=models.CASCADE, related_name = 'comments', null=True, blank=True)
     commenttext = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 

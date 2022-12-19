@@ -52,13 +52,13 @@ class CommentListCreateView(ListCreateAPIView):
             return results
 
         # this is where we are only getting the comments related to the attractionpost
-        return Comment.objects.filter(attraction_id=self.kwargs["attractionpost_pk"])
+        return Comment.objects.filter(attractionpost_id=self.kwargs["attractionpost_pk"])
     # This is where we are changing the perform / create function within this API view 
     def perform_create(self, serializer):
         # This is where we are defining what a comment is, also making sure the comment is saved to the right user and attraction
         # 
-        AttractionPost = get_object_or_404(AttractionPost, pk=self.kwargs["attractionpost_pk"])
-        serializer.save(user=self.request.user, attractionpost=attractionpost)
+        attractionpost = get_object_or_404(AttractionPost, pk=self.kwargs["attractionpost_pk"])
+        serializer.save(comment_owner=self.request.user, attractionpost=attractionpost)
         
 class MyComments(ListAPIView):
     #This is the view for a user to show there own comments.
