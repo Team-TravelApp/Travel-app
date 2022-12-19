@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from django.template.defaultfilters import slugify
-from .models import Comment, AttractionPost
+from .models import Comment, AttractionPost, Following
 from .forms import CommentForm, AttractionPostForm
 from taggit.models import Tag
+from rest_framework import generics, status
+from rest_framework.decorators import api_view
 
 
 def comment_detail(request, slug):
@@ -60,4 +62,23 @@ def tagged(request,slug):
 def index(request): 
     attractions = AttractionPost.objects.all()
     return render(request, 'travel/index.html', {'attractions': attractions})
+
+class FollowingListCreateView(generics.ListCreateAPIView):
+    queryset = Following.objects.all()
+
+    def get_queryset(self):
+        queryset = Friendship.objects.filter(current_user=self.request.user.id)
+        return queryset
+
+    def perform_create(self):
+        Following.save(current_user=self.request.user)
+
+    def create(self, request, *args, **kwargs):
+        try:
+            return super().create(request, *args, **kwargs)
+        except IntegrityError:
+            error_data = {
+                "error": "You are already following this profile."
+            }
+            return Response(error_data, status=status.HTTP_400_BAD_REQUEST)
 
