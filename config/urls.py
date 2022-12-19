@@ -24,13 +24,14 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
     path('auth/', include('djoser.urls.jwt')),
+    path('__debug__/', include('debug_toolbar.urls')),
     path('', views.index, name="home"),
     path('', views.tag_home, name="home"),
     path('post/<slug:slug>/', views.tag_detail, name="detail"),
     
     path('api/', include(router.urls)),
     #path("", include("api.urls")),
-    path('api/attractionposts/<int:comments_pk>/comments/', api_views.CommentListCreateView.as_view(), name="comments"),
+    path('api/attractionposts/<int:attractionpost_pk>/comments/', api_views.CommentListCreateView.as_view(), name="comments"),
     path('api/mycomments/', api_views.MyComments.as_view(), name="my_comments"),
     path('following/', views.FollowingListCreateView.as_view(), name='Following-list'),
 ]

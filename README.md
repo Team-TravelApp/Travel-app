@@ -10,7 +10,7 @@ NOTE: API Root is /api/
 | -------- | ---------- | ------------ |
 |POST|[/auth/users/](#create-a-new-user)|Create a new user|
 |POST|[/auth/token/login/](#login-user)|Login user|
-|POST|[/auth/users/me/](#users-info)|User's info|
+|GET|[/auth/users/me/](#users-info)|User's info|
 |GET|[auth/users/](#all_users)|List of all users|
 |POST|[/auth/token/logout/](#logout-user)|Logout user|
 

@@ -6,8 +6,8 @@ from django.db.models import Count
 from rest_framework.generics import ListCreateAPIView, get_object_or_404, ListAPIView
 
 
-class AttractionPost(ModelViewSet):
-    #This is the attraction post modelviewset
+class AttractionPostViewSet(ModelViewSet):
+    #This is question models view set.
     queryset          = AttractionPost.objects.all()
     serializer_class  = AttractionPostSerializer
 
@@ -48,17 +48,17 @@ class CommentListCreateView(ListCreateAPIView):
         search_term = self.request.query_params.get("search")
         if search_term is not None:
             #Filtering comment objects for anything that has search term in title.
-            results = Comment.objects.filter(attraction__icontains=self.request.query_params.get("search"))
+            results = Comment.objects.filter(comment__icontains=self.request.query_params.get("search"))
             return results
 
-        # this is where we are only getting the answers related to the comment
-        return Comment.objects.filter(comment_id=self.kwargs["comment_pk"])
+        # this is where we are only getting the comments related to the attractionpost
+        return Comment.objects.filter(attraction_id=self.kwargs["attractionpost_pk"])
     # This is where we are changing the perform / create function within this API view 
     def perform_create(self, serializer):
         # This is where we are defining what a comment is, also making sure the comment is saved to the right user and attraction
         # 
-        comment = get_object_or_404(Comment, pk=self.kwargs["comment_pk"])
-        serializer.save(user=self.request.user, comment=comment)
+        AttractionPost = get_object_or_404(AttractionPost, pk=self.kwargs["attractionpost_pk"])
+        serializer.save(user=self.request.user, attractionpost=attractionpost)
         
 class MyComments(ListAPIView):
     #This is the view for a user to show there own comments.
