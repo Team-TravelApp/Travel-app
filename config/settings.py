@@ -49,12 +49,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'travel',
     'rest_framework',
+    'debug_toolbar',
     'rest_framework.authtoken',
     'django_extensions',
     'djoser',
     'django_countries',
     'taggit',
     'api',
+    
 ]
 
 MIDDLEWARE = [
@@ -63,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -169,3 +172,8 @@ SIMPLE_JWT = {
    'AUTH_HEADER_TYPES': ('JWT',),
 } 
 
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    # ...
+]

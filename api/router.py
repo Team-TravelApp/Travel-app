@@ -4,4 +4,4 @@ from rest_framework import routers
 #This router gives me all the attraction post endpoints 
 # in command line in terminal i can see them when I type python manage.py show_urls.
 router = routers.DefaultRouter()
-router.register('attractionposts',api_views.AttractionPost)
+router.register('attractionposts',api_views.AttractionPostViewSet)

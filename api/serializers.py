@@ -13,7 +13,7 @@ class AttractionPostSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     comment_owner = serializers.SlugRelatedField(read_only=True, slug_field="username")
-    attractionpost = serializers.PrimaryKeyRelatedField(read_only=True)
+    attractionpost = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
     class Meta:
         model = Comment
-        fields = ['pk', 'comment_owner', 'attraction', 'commenttext', 'created_at']
+        fields = ['pk', 'comment_owner', 'attractionpost', 'commenttext', 'created_at']
