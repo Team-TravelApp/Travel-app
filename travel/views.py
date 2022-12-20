@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.template.defaultfilters import slugify
-from .models import Comment, AttractionPost, Following
+from .models import AttractionPost, Following, Favorite
 from .forms import CommentForm, AttractionPostForm
 from taggit.models import Tag
 from rest_framework import generics, status
@@ -82,3 +82,10 @@ class FollowingListCreateView(generics.ListCreateAPIView):
             }
             return Response(error_data, status=status.HTTP_400_BAD_REQUEST)
 
+
+
+def attractions_by_favorite(request):
+     favorites=Favorite.objects.filter(user=request.user)
+#.get is for one .filter is for many
+#literally saying get the favorites for the specific user
+     return render(request, 'travel/attractions_by_favorite.html', {"favorites":favorites} )
