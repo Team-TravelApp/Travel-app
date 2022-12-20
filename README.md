@@ -18,7 +18,7 @@ NOTE: API Root is /api/
 |POST|[api/attractionposts/](#create-a-attraction-post)|create a attraction post|
 |PATCH|[api/attractionposts/{pk}/](#update-a-attraction-post)|update a attraction post|
 |DELETE|[api/attractionposts/{pk}/](#delete-a-attraction-post)|delete a attraction post|
-|GET|[api/questions?search=<search_term>](#search-questions)|search question title and text|
+|GET|[api/attractionposts?search=<search_term>](#search-attrctionposts)|search attractionpost title and country|
 |GET|[api/attractionposts/<int:attractionpost_pk>/comments/]|
 (#list-comments-per-attraction-post)|list comments per attraction post|
 |POST|[api/attractionposts/<int:attractionpost_pk>/comments/](#create-comment)|create comment|
@@ -370,3 +370,27 @@ POST api/attractionposts/<int:attractionpost_pk>/comments/
 	"commenttext": "new comment",
 	"created_at": "2022-12-20T21:08:26.488674"
 }
+```
+## search attraction posts
+Search term in attraction posts title and country.
+### Request
+Required fields: None
+```json
+GET api/questions?search=dog
+```
+### Response
+```json
+200 OK
+[
+	{
+		"pk": 13,
+		"user": "tim",
+		"title": "brand new post",
+		"country": "US",
+		"description": "post 7",
+		"created_at": "2022-12-20T20:40:27.221951",
+		"interest_rating": 1,
+		"comments": []
+	}
+]
+```
