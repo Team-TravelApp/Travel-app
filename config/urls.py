@@ -18,9 +18,13 @@ from django.urls import path, include
 from travel import views
 from api.router import router
 from api import views as api_views
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('registration.backends.simple.urls')),
+    path('accounts/logout/', views.logout, name='logout' ),
+    path('accounts/login/', views.login,name='login'),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
     path('auth/', include('djoser.urls.jwt')),
@@ -34,6 +38,7 @@ urlpatterns = [
     path('api/attractionposts/<int:attractionpost_pk>/comments/', api_views.CommentListCreateView.as_view(), name="comments"),
     path('api/mycomments/', api_views.MyComments.as_view(), name="my_comments"),
     path('following/', views.FollowingListCreateView.as_view(), name='Following-list'),
+   
 ]
 
 

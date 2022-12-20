@@ -67,7 +67,7 @@ class FollowingListCreateView(generics.ListCreateAPIView):
     queryset = Following.objects.all()
 
     def get_queryset(self):
-        queryset = Friendship.objects.filter(current_user=self.request.user.id)
+        queryset = Following.objects.filter(current_user=self.request.user.id)
         return queryset
 
     def perform_create(self):
@@ -76,9 +76,23 @@ class FollowingListCreateView(generics.ListCreateAPIView):
     def create(self, request, *args, **kwargs):
         try:
             return super().create(request, *args, **kwargs)
+
         except IntegrityError:
             error_data = {
                 "error": "You are already following this profile."
             }
             return Response(error_data, status=status.HTTP_400_BAD_REQUEST)
 
+
+class FolloweePostList(generics.ListAPIView):
+    queryset = AttractionPost.objects.all()
+
+    def get_queryset(self):
+        return AttractionPost.objects.filter(owner=self.kwargs['pk'])
+
+
+def logout(request):
+    return render(request,'accounts/login/')
+
+def login(request):
+    return render(request, 'accounts/login/')
