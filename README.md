@@ -15,11 +15,14 @@ NOTE: API Root is /api/
 |POST|[/auth/token/logout/](#logout-user)|Logout user|
 |GET|[api/attractionposts/](#list-of-all-attraction-posts)|returns a list of all attraction-posts|
 |GET|[api/attractionposts/{pk}/](#details-of-one-attraction-post)|details of one attraction-post|
-|POST|[api/questions/](#create-a-question)|create a question|
-|PATCH|[api/attractionposts/{pk}/](#update-a-attraction-post)|update a attraction-post|
-|DELETE|[api/attractionposts/{pk}/](#delete-a-attraction-post)|delete a attraction-post|
+|POST|[api/attractionposts/](#create-a-attraction-post)|create a attraction post|
+|PATCH|[api/attractionposts/{pk}/](#update-a-attraction-post)|update a attraction post|
+|DELETE|[api/attractionposts/{pk}/](#delete-a-attraction-post)|delete a attraction post|
 |GET|[api/questions?search=<search_term>](#search-questions)|search question title and text|
-|GET|[api/questions/<int:question_pk>/answers/](#list-answers-per-question)|list answers per question|
+|GET|[api/attractionposts/<int:attractionpost_pk>/comments/]|
+(#list-comments-per-attraction-post)|list comments per attraction post|
+|POST|[api/attractionposts/<int:attractionpost_pk>/comments/](#create-comment)|create comment|
+
 
 
 ## Create a new user
@@ -121,7 +124,7 @@ POST /auth/token/logout/
 ```json
 204 No Content
 ```
-## list of all attraction-posts
+## list of all attraction posts
 Returns list of all attraction-posts.
 ### Request
 Required fields: None
@@ -216,7 +219,7 @@ GET api/questions/
 	}
 ]
 ```
-## details of one attraction-post
+## details of one attraction post
 Returns detail of one attraction-post.
 ### Request
 Required fields: None
@@ -241,7 +244,7 @@ GET api/questions/<pk>/
 	"total_comments": 2
 }
 ```
-## update a attraction-post
+## update a attraction post
 update a attraction-post.
 ### Request
 Required fields:
@@ -269,7 +272,7 @@ PATCH api/attractionposts/<pk>/
 	"total_comments": 2
 }
 ```
-## delete a attraction-post
+## delete a attraction post
 delete a attraction-post.
 ### Request
 Required fields:None
@@ -282,3 +285,88 @@ DELETE api/questions/<pk>/
 204 No Content
 
 ```
+## create a question
+create a question.
+### Request
+Required fields:
+```json
+POST api/attractionposts/
+{
+		"title": "brand new post",
+		"country": "US",
+		"description": "post 7",
+		"interest_rating": 1,
+		
+	}
+```
+### Response
+```json
+201 Created
+{
+	"pk": 13,
+	"user": "tim",
+	"title": "brand new post",
+	"country": "US",
+	"description": "post 7",
+	"created_at": "2022-12-20T20:40:27.221951",
+	"interest_rating": 1,
+	"comments": []
+}
+```
+## list comments per attraction post
+list comments per attraction-post
+### Request
+Required fields:none
+```json
+GET api/attractionposts/<int:attractionpost_pk>/comments/
+```
+### Response
+```json
+200 OK
+[
+	{
+		"pk": 4,
+		"comment_owner": "tim",
+		"attractionpost": 2,
+		"commenttext": "comment 1",
+		"created_at": "2022-12-20T15:10:16.781230"
+	},
+	{
+		"pk": 5,
+		"comment_owner": "tim",
+		"attractionpost": 2,
+		"commenttext": "commment 2",
+		"created_at": "2022-12-20T15:10:30.201733"
+	},
+	{
+		"pk": 6,
+		"comment_owner": "tim",
+		"attractionpost": 2,
+		"commenttext": "comment 3",
+		"created_at": "2022-12-20T15:10:43.359754"
+	}
+]
+```
+## create comments
+create comment
+### Request
+Required fields:none
+```json
+POST api/attractionposts/<int:attractionpost_pk>/comments/
+{
+	
+		"commenttext": "new comment"
+		
+	}
+
+```
+### Response
+```json
+201 CREATED
+{
+	"pk": 12,
+	"comment_owner": "tim",
+	"attractionpost": 2,
+	"commenttext": "new comment",
+	"created_at": "2022-12-20T21:08:26.488674"
+}
