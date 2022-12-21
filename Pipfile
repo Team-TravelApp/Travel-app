@@ -17,7 +17,12 @@ django-countries = "*"
 django-taggit = "*"
 django-extensions = "*"
 django-debug-toolbar = "*"
+<<<<<<< HEAD
+boto3 = "*"
+django-storages = "*"
+=======
 django-registration-redux = "*"
+>>>>>>> main
 
 [dev-packages]
 

@@ -18,6 +18,7 @@ from django.urls import path, include
 from travel import views 
 from api.router import router
 from api import views as api_views
+from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
@@ -41,8 +42,10 @@ urlpatterns = [
     path('api/attractionposts/<int:attractionpost_pk>/comments/', api_views.CommentListCreateView.as_view(), name="comments"),
     path('api/mycomments/', api_views.MyComments.as_view(), name="my_comments"),
     path('following/', views.FollowingListCreateView.as_view(), name='Following-list'),
-
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 
