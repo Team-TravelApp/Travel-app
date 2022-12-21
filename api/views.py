@@ -3,7 +3,8 @@ from travel.models import AttractionPost, Comment
 from rest_framework.viewsets import ModelViewSet
 from django.db.models import Q
 from django.db.models import Count
-from rest_framework.generics import ListCreateAPIView, get_object_or_404, ListAPIView
+from rest_framework.generics import ListCreateAPIView, get_object_or_404, ListAPIView, UpdateAPIView
+from rest_framework import parsers
 
 
 class AttractionPostViewSet(ModelViewSet):
@@ -66,4 +67,10 @@ class MyComments(ListAPIView):
     serializer_class = CommentSerializer
 
     def get_queryset(self):
-        return Comment.objects.filter(user=self.request.user)        
+        return Comment.objects.filter(user=self.request.user)       
+
+
+class PostImageView(UpdateAPIView):
+    queryset = AttractionPost.objects.all()
+    serializer_class = AttractionPostSerializer
+    parser_classes = [parsers.FileUploadParser]

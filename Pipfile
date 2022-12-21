@@ -17,6 +17,8 @@ django-countries = "*"
 django-taggit = "*"
 django-extensions = "*"
 django-debug-toolbar = "*"
+boto3 = "*"
+django-storages = "*"
 
 [dev-packages]
 
