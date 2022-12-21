@@ -13,6 +13,17 @@ NOTE: API Root is /api/
 |GET|[/auth/users/me/](#users-info)|User's info|
 |GET|[auth/users/](#all_users)|List of all users|
 |POST|[/auth/token/logout/](#logout-user)|Logout user|
+|GET|[api/attractionposts/](#list-of-all-attraction-posts)|returns a list of all attraction-posts|
+|GET|[api/attractionposts/{pk}/](#details-of-one-attraction-post)|details of one attraction-post|
+|POST|[api/attractionposts/](#create-a-attraction-post)|create a attraction post|
+|PATCH|[api/attractionposts/{pk}/](#update-a-attraction-post)|update a attraction post|
+|DELETE|[api/attractionposts/{pk}/](#delete-a-attraction-post)|delete a attraction post|
+|GET|[api/attractionposts?search=<search_term>](#search-attrctionposts)|search attractionpost title and country|
+|GET|[api/attractionposts/<int:attractionpost_pk>/comments/]|
+(#list-comments-per-attraction-post)|list comments per attraction post|
+|POST|[api/attractionposts/<int:attractionpost_pk>/comments/](#create-comment)|create comment|
+
+
 
 ## Create a new user
 ### Request
@@ -62,10 +73,46 @@ GET /auth/users/me/
 ```json
 200 OK
 {
-    "id": 4,
-    "username": "Luke",
-    "email": "",
+	"email": "",
+	"id": 1,
+	"username": "tim"
 }
+```
+## List of User's 
+Requirement: user must be logged in.
+```json
+GET /auth/users/
+```
+### Response
+```json
+200 OK
+[
+	{
+		"email": "",
+		"id": 1,
+		"username": "tim"
+	},
+	{
+		"email": "",
+		"id": 2,
+		"username": "user1"
+	},
+	{
+		"email": "",
+		"id": 3,
+		"username": "user2"
+	},
+	{
+		"email": "",
+		"id": 4,
+		"username": "user3"
+	},
+	{
+		"email": "",
+		"id": 5,
+		"username": "user4"
+	}
+]
 ```
 ## Logout user
 ### Request
@@ -76,4 +123,274 @@ POST /auth/token/logout/
 ### Response
 ```json
 204 No Content
+```
+## list of all attraction posts
+Returns list of all attraction-posts.
+### Request
+Required fields: None
+```json
+GET api/questions/
+```
+### Response
+```json
+200 OK
+[
+	{
+		"pk": 4,
+		"user": "tim",
+		"title": "post 3",
+		"country": "GP",
+		"description": "post 3",
+		"created_at": "2022-12-20T15:08:35.321137",
+		"interest_rating": 1,
+		"comments": [
+			8,
+			10
+		],
+		"total_comments": 2
+	},
+	{
+		"pk": 6,
+		"user": "tim",
+		"title": "post 3",
+		"country": "GP",
+		"description": "post 3",
+		"created_at": "2022-12-20T15:29:37.541000",
+		"interest_rating": 2,
+		"comments": [],
+		"total_comments": 0
+	},
+	{
+		"pk": 2,
+		"user": "tim",
+		"title": "post 1",
+		"country": "AD",
+		"description": "post 1",
+		"created_at": "2022-12-20T15:07:30.046038",
+		"interest_rating": 7,
+		"comments": [
+			4,
+			5,
+			6
+		],
+		"total_comments": 3
+	},
+	{
+		"pk": 3,
+		"user": "tim",
+		"title": "post 2",
+		"country": "CW",
+		"description": "post 2",
+		"created_at": "2022-12-20T15:08:06.122249",
+		"interest_rating": 5,
+		"comments": [
+			7
+		],
+		"total_comments": 1
+	},
+	{
+		"pk": 1,
+		"user": "tim",
+		"title": "new post",
+		"country": "AM",
+		"description": "asdfasdf",
+		"created_at": "2022-12-20T14:25:49.645179",
+		"interest_rating": 1,
+		"comments": [
+			1,
+			2,
+			3
+		],
+		"total_comments": 3
+	},
+	{
+		"pk": 5,
+		"user": "tim",
+		"title": "post 4",
+		"country": "NI",
+		"description": "post 4",
+		"created_at": "2022-12-20T15:09:02.464600",
+		"interest_rating": 1,
+		"comments": [
+			9,
+			11
+		],
+		"total_comments": 2
+	}
+]
+```
+## details of one attraction post
+Returns detail of one attraction-post.
+### Request
+Required fields: None
+```json
+GET api/questions/<pk>/
+```
+### Response
+```json
+200 OK
+{
+	"pk": 5,
+	"user": "tim",
+	"title": "post 4",
+	"country": "NI",
+	"description": "post 4",
+	"created_at": "2022-12-20T15:09:02.464600",
+	"interest_rating": 1,
+	"comments": [
+		9,
+		11
+	],
+	"total_comments": 2
+}
+```
+## update a attraction post
+update a attraction-post.
+### Request
+Required fields:
+```json
+PATCH api/attractionposts/<pk>/
+{
+   "title": "post 12"
+}
+```
+### Response
+```json
+200 Created
+{{
+	"pk": 4,
+	"user": "tim",
+	"title": "post 12",
+	"country": "GP",
+	"description": "post 3",
+	"created_at": "2022-12-20T15:08:35.321137",
+	"interest_rating": 1,
+	"comments": [
+		8,
+		10
+	],
+	"total_comments": 2
+}
+```
+## delete a attraction post
+delete a attraction-post.
+### Request
+Required fields:None
+```json
+DELETE api/questions/<pk>/
+
+```
+### Response
+```json
+204 No Content
+
+```
+## create a question
+create a question.
+### Request
+Required fields:
+```json
+POST api/attractionposts/
+{
+		"title": "brand new post",
+		"country": "US",
+		"description": "post 7",
+		"interest_rating": 1,
+		
+	}
+```
+### Response
+```json
+201 Created
+{
+	"pk": 13,
+	"user": "tim",
+	"title": "brand new post",
+	"country": "US",
+	"description": "post 7",
+	"created_at": "2022-12-20T20:40:27.221951",
+	"interest_rating": 1,
+	"comments": []
+}
+```
+## list comments per attraction post
+list comments per attraction-post
+### Request
+Required fields:none
+```json
+GET api/attractionposts/<int:attractionpost_pk>/comments/
+```
+### Response
+```json
+200 OK
+[
+	{
+		"pk": 4,
+		"comment_owner": "tim",
+		"attractionpost": 2,
+		"commenttext": "comment 1",
+		"created_at": "2022-12-20T15:10:16.781230"
+	},
+	{
+		"pk": 5,
+		"comment_owner": "tim",
+		"attractionpost": 2,
+		"commenttext": "commment 2",
+		"created_at": "2022-12-20T15:10:30.201733"
+	},
+	{
+		"pk": 6,
+		"comment_owner": "tim",
+		"attractionpost": 2,
+		"commenttext": "comment 3",
+		"created_at": "2022-12-20T15:10:43.359754"
+	}
+]
+```
+## create comments
+create comment
+### Request
+Required fields:none
+```json
+POST api/attractionposts/<int:attractionpost_pk>/comments/
+{
+	
+		"commenttext": "new comment"
+		
+	}
+
+```
+### Response
+```json
+201 CREATED
+{
+	"pk": 12,
+	"comment_owner": "tim",
+	"attractionpost": 2,
+	"commenttext": "new comment",
+	"created_at": "2022-12-20T21:08:26.488674"
+}
+```
+## search attraction posts
+Search term in attraction posts title and country.
+### Request
+Required fields: None
+```json
+GET api/questions?search=dog
+```
+### Response
+```json
+200 OK
+[
+	{
+		"pk": 13,
+		"user": "tim",
+		"title": "brand new post",
+		"country": "US",
+		"description": "post 7",
+		"created_at": "2022-12-20T20:40:27.221951",
+		"interest_rating": 1,
+		"comments": []
+	}
+]
 ```

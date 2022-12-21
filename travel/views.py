@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.template.defaultfilters import slugify
-from .models import Comment, AttractionPost, Following
-from .forms import CommentForm, AttractionPostForm
+from .models import AttractionPost, Following, Favorite 
+from .forms import CommentForm, AttractionPostForm, FavoriteForm
 from taggit.models import Tag
 from rest_framework import generics, status
 from rest_framework.decorators import api_view
@@ -84,6 +84,32 @@ class FollowingListCreateView(generics.ListCreateAPIView):
             return Response(error_data, status=status.HTTP_400_BAD_REQUEST)
 
 
+
+
+def attractions_by_favorite(request):
+     favorites=Favorite.objects.filter(user=request.user)
+#.get is for one .filter is for many
+#literally saying get the favorites for the specific user
+     return render(request, 'travel/attractions_by_favorite.html', {"favorites":favorites} )
+
+
+def attraction_details(request, pk):
+    if request.method == 'POST':
+        attraction = get_object_or_404(AttractionPost, pk=pk)
+        user = request.user
+        form = FavoriteForm(data=request.POST)
+        if form.is_valid():
+            favorite = form.save(commit=False)
+            favorite.attraction = attraction
+            favorite.user = user
+            favorite.save()
+            return redirect(to='attraction_details', pk=pk)
+    else:
+        form = FavoriteForm()
+        attraction = AttractionPost.objects.get(pk=pk)
+    return render(request, "travel/attraction_details.html", {"attraction": attraction, 'form': form})     
+
+
 class FolloweePostList(generics.ListAPIView):
     queryset = AttractionPost.objects.all()
 
@@ -96,3 +122,4 @@ def logout(request):
 
 def login(request):
     return render(request, 'accounts/login/')
+

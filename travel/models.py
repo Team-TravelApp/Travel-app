@@ -18,11 +18,11 @@ def __str__(self):
 class AttractionPost(models.Model): 
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    country = CountryField(blank_label='(select country)')
+    country = models.TextField(blank=True)
     description = models.TextField(blank=True)
     tags = TaggableManager(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    slug = models.SlugField(unique=True, max_length=100)
+    slug = models.SlugField( max_length=100)
     interest_rating = models.IntegerField(default=1,
     validators = [
         MaxValueValidator(10),
@@ -32,6 +32,8 @@ class AttractionPost(models.Model):
     def __str__(self):
         return self.title
         
+    def star_rating(self):
+        return "*"*self.interest_rating
 
 class Comment(models.Model): 
     comment_owner = models.ForeignKey(CustomUser,on_delete=models.CASCADE, related_name = 'comments')
@@ -44,7 +46,7 @@ class Favorite(models.Model):
     attraction = models.ForeignKey(AttractionPost, on_delete=models.CASCADE, related_name ='favorites')    
 
     def __str__(self):
-        return self.attraction.country
+        return self.attraction.title
 
 class Following(models.Model):
     current_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='curent_users')
