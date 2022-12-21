@@ -29,6 +29,7 @@ urlpatterns = [
     path('', views.tag_home, name="home"),
     path('post/<slug:slug>/', views.tag_detail, name="detail"),
     path('favorites', views.attractions_by_favorite, name='attractions_by_favorite'),
+    path('attractions/<int:pk>',views.attraction_details, name='attraction_details'),
 
     
     path('api/', include(router.urls)),
@@ -36,6 +37,7 @@ urlpatterns = [
     path('api/attractionposts/<int:attractionpost_pk>/comments/', api_views.CommentListCreateView.as_view(), name="comments"),
     path('api/mycomments/', api_views.MyComments.as_view(), name="my_comments"),
     path('following/', views.FollowingListCreateView.as_view(), name='Following-list'),
+    
     
 ]
 
