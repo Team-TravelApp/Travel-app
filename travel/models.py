@@ -22,7 +22,6 @@ class AttractionPost(models.Model):
     description = models.TextField(blank=True)
     tags = TaggableManager(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    slug = models.SlugField( max_length=100)
     interest_rating = models.IntegerField(default=1,
     validators = [
         MaxValueValidator(10),
