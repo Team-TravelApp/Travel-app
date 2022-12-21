@@ -49,7 +49,7 @@ class CommentListCreateView(ListCreateAPIView):
         search_term = self.request.query_params.get("search")
         if search_term is not None:
             #Filtering comment objects for anything that has search term in title.
-            results = Comment.objects.filter(comment__icontains=self.request.query_params.get("search"))
+            results = Comment.objects.filter (Q(comment__icontains=self.request.query_params.get("search")))
             return results
 
         # this is where we are only getting the comments related to the attractionpost

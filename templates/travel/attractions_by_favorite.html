@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<h1>Favorites</h1> 
+
+<a href="{% url 'login' %}">Login</a>
+
+{% for favorite in favorites %}
+    
+        
+            
+            <div>
+                <h5>Title: {{ favorite.attraction.title }}</h5>
+                <p>Country: {{ favorite.attraction.country }}</p>
+                <p>About this attraction: {{ favorite.attraction.description }}</p>
+                <p>Rating: {{ favorite.attraction.star_rating }}</p>
+                 
+             </a>
+
+{% endfor %}
+{% endblock %}

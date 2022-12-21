@@ -1,5 +1,5 @@
 from django import forms
-from .models import Comment, CustomUser, AttractionPost
+from .models import Comment, CustomUser, AttractionPost, Favorite
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 
@@ -37,3 +37,10 @@ class AttractionPostForm(forms.ModelForm):
             
         ]
         
+class FavoriteForm(forms.ModelForm):
+    class Meta:
+        model = Favorite
+        fields = [
+           
+                  
+        ]        

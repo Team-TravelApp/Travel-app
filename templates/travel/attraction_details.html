@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<h1>{{ attraction.title }}</h1>
+<div>
+    <div>
+       
+        <p> Country: {{ attraction.country }} </p>
+        <p> Star Rating: {{ attraction.star_rating }} </p>
+        <form action="{% url 'attraction_details' pk=attraction.pk %}" method="POST">  
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit"> Add to Favorites </button>
+        </form>
+        
+        <h4> About this attraction: </h4>
+        <p> {{ attraction.description }} </p>
+    </div>
+</div>
+
+{% endblock %}

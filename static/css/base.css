@@ -1,0 +1,45 @@
+body {
+    background-size: 150%;
+    background-color: lightblue;
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/59/Airport_Transport_Woman_Girl_Tourist_Travel.jpg");
+}
+
+header  {
+    color: gold;
+    background-color: darkblue;
+    width: 700px;
+    text-align: center;
+    border-radius: 30px;
+    border-color: aliceblue;
+    border: solid;
+}
+
+h2 {
+    color: gold;
+    background-color: darkblue;
+    width: 700px;
+    text-align: center;
+    border-radius: 30px;
+    border-color: aliceblue;
+    border: solid;
+}
+
+h3 {
+    color: gold;
+    background-color: darkblue;
+    width: 700px;
+    text-align: center;
+    border-radius: 30px;
+    border-color: aliceblue;
+    border: solid;
+}
+
+h5 {
+    text-align: center;
+    width: 250px;
+    color: gold;
+    background-color: blue;
+    border-color: gold;
+    border: solid;
+    flex-direction: column;
+}
