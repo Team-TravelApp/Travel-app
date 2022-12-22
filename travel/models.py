@@ -27,7 +27,6 @@ class AttractionPost(models.Model):
         MaxValueValidator(10),
         MinValueValidator(1),
     ])
-    image = models.ImageField(upload_to='postimage', blank=True, null=True)
 
     def __str__(self):
         return self.title
