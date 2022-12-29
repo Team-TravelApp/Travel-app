@@ -4,13 +4,24 @@
 
 
 
-<feed>
-
+<div>
+    <button><a href="{% url 'add_attraction' %}">
+         Add a new attraction
+        </a></button>
     <h3>
         Most Recent Attractions(feed):
+        {% for attraction in attractions %}
+        <div>
+            <h5>Title: {{ attraction.title }}</h5>
+                <p>Country: {{ attraction.country }}</p>
+                <p>About this attraction: {{ attraction.description }}</p>
+                <p>Rating: {{ attraction.star_rating }}</p>
+                <a href="{% url 'attraction_details' attraction.pk %}" >See more</a>
+        </div>
+        {% endfor %}
     </h3>
 
-</feed>
+</div>
 
 
 {% endblock %}

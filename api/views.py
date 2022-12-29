@@ -1,9 +1,12 @@
 from .serializers import AttractionPostSerializer, CommentSerializer
-from travel.models import AttractionPost, Comment
+from travel.models import AttractionPost, Comment, Following
 from rest_framework.viewsets import ModelViewSet
 from django.db.models import Q
 from django.db.models import Count
 from rest_framework.generics import ListCreateAPIView, get_object_or_404, ListAPIView
+from rest_framework import generics, status
+from rest_framework.decorators import api_view
+
 
 
 class AttractionPostViewSet(ModelViewSet):
@@ -66,4 +69,32 @@ class MyComments(ListAPIView):
     serializer_class = CommentSerializer
 
     def get_queryset(self):
-        return Comment.objects.filter(user=self.request.user)        
+        return Comment.objects.filter(user=self.request.user)      
+
+class FollowingListCreateView(generics.ListCreateAPIView):
+    queryset = Following.objects.all()
+
+    def get_queryset(self):
+        queryset = Following.objects.filter(current_user=self.request.user.id)
+        return queryset
+
+    def perform_create(self):
+        Following.save(current_user=self.request.user)
+
+    def create(self, request, *args, **kwargs):
+        try:
+            return super().create(request, *args, **kwargs)
+
+        except IntegrityError:
+            error_data = {
+                "error": "You are already following this profile."
+            }
+            return Response(error_data, status=status.HTTP_400_BAD_REQUEST)  
+
+class FolloweePostList(generics.ListAPIView):
+    queryset = AttractionPost.objects.all()
+
+    def get_queryset(self):
+        return AttractionPost.objects.filter(owner=self.kwargs['pk'])
+
+

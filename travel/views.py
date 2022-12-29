@@ -3,8 +3,7 @@ from django.template.defaultfilters import slugify
 from .models import AttractionPost, Following, Favorite 
 from .forms import CommentForm, AttractionPostForm, FavoriteForm
 from taggit.models import Tag
-from rest_framework import generics, status
-from rest_framework.decorators import api_view
+
 
 
 def comment_detail(request, slug):
@@ -63,28 +62,6 @@ def index(request):
     attractions = AttractionPost.objects.all()
     return render(request, 'travel/index.html', {'attractions': attractions})
 
-class FollowingListCreateView(generics.ListCreateAPIView):
-    queryset = Following.objects.all()
-
-    def get_queryset(self):
-        queryset = Following.objects.filter(current_user=self.request.user.id)
-        return queryset
-
-    def perform_create(self):
-        Following.save(current_user=self.request.user)
-
-    def create(self, request, *args, **kwargs):
-        try:
-            return super().create(request, *args, **kwargs)
-
-        except IntegrityError:
-            error_data = {
-                "error": "You are already following this profile."
-            }
-            return Response(error_data, status=status.HTTP_400_BAD_REQUEST)
-
-
-
 
 def attractions_by_favorite(request):
      favorites=Favorite.objects.filter(user=request.user)
@@ -109,13 +86,18 @@ def attraction_details(request, pk):
         attraction = AttractionPost.objects.get(pk=pk)
     return render(request, "travel/attraction_details.html", {"attraction": attraction, 'form': form})     
 
+def add_attraction(request):
+    if request.method == 'GET':
+        form = AttractionPostForm()
+    else:
+        form = AttractionPostForm(data=request.POST)
+        if form.is_valid():
+            attraction = form.save(commit=False)
+            attraction.user = request.user
+            attraction.save()
+            return redirect(to='index')
 
-class FolloweePostList(generics.ListAPIView):
-    queryset = AttractionPost.objects.all()
-
-    def get_queryset(self):
-        return AttractionPost.objects.filter(owner=self.kwargs['pk'])
-
+    return render(request, "travel/add_attraction.html", {"form":form})
 
 def logout(request):
     return render(request,'accounts/login/')

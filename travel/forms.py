@@ -33,7 +33,7 @@ class AttractionPostForm(forms.ModelForm):
             'country',
             'description',
             'interest_rating',
-            'tags'
+            'tags',
             
         ]
         

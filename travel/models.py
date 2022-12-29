@@ -20,7 +20,9 @@ class AttractionPost(models.Model):
     title = models.CharField(max_length=200)
     country = models.TextField(blank=True)
     description = models.TextField(blank=True)
-    tags = TaggableManager(blank=True)
+    tags = models.CharField(max_length=200, null=True)
+    #TaggableManager(blank=True)
+    slug = models.SlugField(null=True, unique =True)
     created_at = models.DateTimeField(auto_now_add=True)
     interest_rating = models.IntegerField(default=1,
     validators = [
