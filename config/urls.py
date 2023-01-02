@@ -35,6 +35,7 @@ urlpatterns = [
     path('favorites', views.attractions_by_favorite, name='attractions_by_favorite'),
     path('attractions/<int:pk>',views.attraction_details, name='attraction_details'),
     path('attraction/new',views.add_attraction, name='add_attraction'),
+    path('attractions/<int:pk>/comment',views.add_comment, name='add_comment'),
 
     
     path('api/', include(router.urls)),

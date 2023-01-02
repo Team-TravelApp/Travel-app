@@ -9,7 +9,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ('comment_owner', 'attractionpost', 'commenttext')
+        fields = ('comment_owner', 'commenttext')
 
 class CustomUserCreationForm(UserCreationForm):
 
