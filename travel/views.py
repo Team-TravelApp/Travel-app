@@ -105,3 +105,29 @@ def logout(request):
 def login(request):
     return render(request, 'accounts/login/')
 
+def Following(request):
+    queryset = Following.objects.all()
+
+    def get_queryset(self):
+        queryset = Following.objects.filter(current_user=self.request.user.id)
+        return queryset
+
+    def perform_create(self):
+        Following.save(current_user=self.request.user)
+
+    def create(self, request, *args, **kwargs):
+        try:
+            return super().create(request, *args, **kwargs)
+
+        except IntegrityError:
+            error_data = {
+                "error": "You are already following this profile."
+            }
+            return Response(error_data, status=status.HTTP_400_BAD_REQUEST)  
+
+def Followee(request):
+    queryset = AttractionPost.objects.all()
+
+    def get_queryset(self):
+        return AttractionPost.objects.filter(owner=self.kwargs['pk'])
+
