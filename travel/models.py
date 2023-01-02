@@ -21,9 +21,22 @@ def __str__(self):
 
 
 class AttractionPost(models.Model): 
+
+    CONTINENTS = [
+        ('EUROPE', 'EUROPE'),
+        ('ASIA', 'ASIA'),
+        ('AFRICA', 'AFRICA'),
+        ('AUSTRALIA', 'AUSTRALIA'),
+        ('NORTH AMERICA', 'NORTH AMERICA'),
+        ('SOUTH AMERICA', 'SOUTH AMERICA'),
+        ('ANTARCTICA', 'ANTARCTICA'),
+        
+    ]
+
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     country = CountryField(blank_label='(select country')
+    continent = models.CharField(max_length=50, choices=CONTINENTS, default='NONE')
     description = models.TextField(blank=True)
     tags = models.CharField(max_length=200, null=True)
     #TaggableManager(blank=True)
