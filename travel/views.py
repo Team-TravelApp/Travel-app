@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.defaultfilters import slugify
-from .models import AttractionPost, Following, Favorite 
+from .models import AttractionPost, Following, Favorite, Comment 
 from .forms import CommentForm, AttractionPostForm, FavoriteForm
 from taggit.models import Tag
 
@@ -71,9 +71,12 @@ def attractions_by_favorite(request):
 
 
 def attraction_details(request, pk):
+    attraction = get_object_or_404(AttractionPost, pk=pk)
+    comments = Comment.objects.filter(attraction=attraction)
+    user = request.user
+    
     if request.method == 'POST':
-        attraction = get_object_or_404(AttractionPost, pk=pk)
-        user = request.user
+        
         form = FavoriteForm(data=request.POST)
         if form.is_valid():
             favorite = form.save(commit=False)
@@ -81,10 +84,31 @@ def attraction_details(request, pk):
             favorite.user = user
             favorite.save()
             return redirect(to='attraction_details', pk=pk)
+    elif request.method == 'POST':
+        form = CommentForm(data=request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.attraction = attraction
+            comment.save()
     else:
         form = FavoriteForm()
         attraction = AttractionPost.objects.get(pk=pk)
-    return render(request, "travel/attraction_details.html", {"attraction": attraction, 'form': form})     
+        
+    return render(request, "travel/attraction_details.html", {"attraction": attraction, 'form': form, "comments":comments})     
+    
+def add_comment(request,pk):
+    attraction = get_object_or_404(AttractionPost, pk=pk)
+    comment = Comment.objects.filter(attraction=attraction)
+    if request.method == 'GET':
+        form = CommentForm()
+    else:
+        form = CommentForm(data=request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.attraction = attraction
+            comment.save()
+            return redirect(to='attraction_details', pk=pk)
+    return render(request, "travel/add_comment.html", {"form":form, "attraction":attraction})
 
 def add_attraction(request):
     if request.method == 'GET':

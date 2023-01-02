@@ -2,6 +2,9 @@
 {% load static %}
 
 {% block content %}
+<body>
+    
+
 <h1>{{ attraction.title }}</h1>
 <div>
     <div>
@@ -16,7 +19,21 @@
         
         <h4> About this attraction: </h4>
         <p> {{ attraction.description }} </p>
+        <a href="{% url 'add_comment' attraction.pk %}"><button>Add a Comment</button></a> 
+          
+        <h1>Comments</h1>
+        {% for comment in comments %}
+
+            
+            <div>
+                <i> "{{ comment.commenttext }}" </i>
+                <p> Commented By: {{comment.comment_owner.username}} </p>
+                <p> Comment Date: {{comment.created_at}} </p>
+
+            </div>
+
+    {% endfor %}
     </div>
 </div>
-
+</body>
 {% endblock %}
