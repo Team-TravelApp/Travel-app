@@ -23,11 +23,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.simple.urls')),
-    path('accounts/logout/', views.logout, name='logout' ),
-    path('accounts/login/', views.login,name='login'),
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.authtoken')),
-    path('auth/', include('djoser.urls.jwt')),
+    # path('accounts/logout/', views.logout, name='logout'),
+    # path('accounts/login/', views.login,name='login'),
+    # path('auth/', include('djoser.urls')),
+    # path('auth/', include('djoser.urls.authtoken')),
+    # path('auth/', include('djoser.urls.jwt')),
     path('__debug__/', include('debug_toolbar.urls')),
     path('', views.index, name="index"),
     path('', views.tag_home, name="home"),
@@ -39,7 +39,7 @@ urlpatterns = [
 
     
     path('api/', include(router.urls)),
-    #path("", include("api.urls")),
+    # path("", include("api.urls")),
     path('api/attractionposts/<int:attractionpost_pk>/comments/', api_views.CommentListCreateView.as_view(), name="comments"),
     path('api/mycomments/', api_views.MyComments.as_view(), name="my_comments"),
     path('following/', api_views.FollowingListCreateView.as_view(), name='Following-list'),
