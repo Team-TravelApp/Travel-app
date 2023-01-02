@@ -14,11 +14,16 @@ class CustomUser(AbstractUser):
 def __str__(self):
     return self.username
 
+# class Countries(models.Model):
+   # user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    # attractionpost = models.ForeignKey(AttractionPost,on_delete=models.CASCADE, related_name = 'comments', null=True, blank=True)
+
+
 
 class AttractionPost(models.Model): 
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    country = models.TextField(blank=True)
+    country = CountryField(blank_label='(select country')
     description = models.TextField(blank=True)
     tags = models.CharField(max_length=200, null=True)
     #TaggableManager(blank=True)
