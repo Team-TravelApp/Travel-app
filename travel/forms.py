@@ -31,6 +31,7 @@ class AttractionPostForm(forms.ModelForm):
             'user',
             'title',
             'country',
+            'continent',
             'description',
             'interest_rating',
             'tags',

@@ -9,14 +9,16 @@
          Add a new attraction
         </a></button>
     <h3>
-        Most Recent Attractions(feed):
+        Most Recent Attractions added:
         {% for attraction in attractions %}
         <div>
             <h5>Title: {{ attraction.title }}</h5>
                 <p>Country: {{ attraction.country }}</p>
+                <p>Continent: {{ attraction.continent }}</p>
                 <p>About this attraction: {{ attraction.description }}</p>
                 <p>Rating: {{ attraction.star_rating }}</p>
-                <a href="{% url 'attraction_details' attraction.pk %}" >See more</a>
+                <p>Tag: {{ attraction.tags }}</p>
+                <a href="{% url 'attraction_details' attraction.pk %}" >Expand Attraction</a>
         </div>
         {% endfor %}
     </h3>
