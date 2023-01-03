@@ -96,7 +96,7 @@ def attraction_details(request, pk):
         
     return render(request, "travel/attraction_details.html", {"attraction": attraction, 'form': form, "comments":comments})     
     
-def add_comment(request,pk):
+def add_comment(request, pk):
     attraction = get_object_or_404(AttractionPost, pk=pk)
     comment = Comment.objects.filter(attraction=attraction)
     if request.method == 'GET':
@@ -122,6 +122,30 @@ def add_attraction(request):
             return redirect(to='index')
 
     return render(request, "travel/add_attraction.html", {"form":form})
+
+
+def edit_attraction(request, pk):
+    attraction = get_object_or_404(AttractionPost, pk=pk)
+    if request.method == 'GET':
+        form = AttractionPostForm()
+    else:
+        form = AttractionPostForm(data=request.PUT)
+        if form.is_valid():
+            attraction = form.save(commit=False)
+            attraction.user = request.user
+            attraction.save()
+            return redirect(to='index')
+
+    return render(request, "travel/edit_attraction.html", {"form":form, "attraction":attraction})
+
+
+def delete_attraction(request, pk):
+    attraction = get_object_or_404(AttractionPost, pk=pk)
+    if request.method == "POST":
+        AttractionPost.delete()
+        return redirect('home')
+    return render(request, 'travel/delete_attraction.html', {"form":form})
+
 
 def logout(request):
     return render(request,'accounts/login/')
