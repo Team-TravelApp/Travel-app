@@ -12,7 +12,7 @@
         Most Recent Attractions added:
         {% for attraction in attractions %}
         <div>
-            <h5>Title: {{ attraction.title }}</h5>
+            <h5>{{ attraction.title }} (User: {{attraction.user}})</h5>
                 <p>Country: {{ attraction.country }}</p>
                 <p>Continent: {{ attraction.continent }}</p>
                 <p>About this attraction: {{ attraction.description }}</p>
