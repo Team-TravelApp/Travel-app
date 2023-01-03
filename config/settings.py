@@ -41,6 +41,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'registration',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,7 +54,6 @@ INSTALLED_APPS = [
     #'debug_toolbar',
     'rest_framework.authtoken',
     'django_extensions',
-    'djoser',
     'django_countries',
     'taggit',
     'api',
@@ -179,5 +179,5 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
-
-LOGIN_REDIRECT_URL='/'
+SIMPLE_BACKEND_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'index'
