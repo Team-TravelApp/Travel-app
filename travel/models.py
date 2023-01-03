@@ -40,13 +40,14 @@ class AttractionPost(models.Model):
     description = models.TextField(blank=True)
     tags = models.CharField(max_length=200, null=True)
     #TaggableManager(blank=True)
-    slug = models.SlugField(null=True, unique =True)
+    slug = models.SlugField(null=True, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     interest_rating = models.IntegerField(default=1,
     validators = [
         MaxValueValidator(10),
         MinValueValidator(1),
     ])
+    image = models.ImageField(upload_to="post_images", blank=True, null=True)
 
     def __str__(self):
         return self.title
