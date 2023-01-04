@@ -8,7 +8,18 @@
 <h1>{{ attraction.title }}</h1>
 <div>
     <div>
-        <a href="{% url 'attractiondelete' pk=attraction.pk %}">DELETE ATTRACTION</a>
+        <button><a href="{% url 'attractiondelete' pk=attraction.pk %}">DELETE ATTRACTION</a></button>
+        <button><a href="{% url 'attractionedit' pk=attraction.pk %}">EDIT ATTRACTION</a></button>
+
+        <form action="{% url 'attractionedit' pk=attraction.pk %}" method="POST">  
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit"> Add to Favorites </button>
+            </form>
+
+
+
+
        
         <p> Country: {{ attraction.country }} </p>
         <p> Star Rating: {{ attraction.star_rating }} </p>

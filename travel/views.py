@@ -171,5 +171,21 @@ def attraction_delete(request, pk):
         return redirect('index')
     return render(request, 'travel/delete_attraction.html')
 
+@login_required
+def attraction_edit(request, pk):
+    attraction = AttractionPost.objects.get(pk=pk)
+    user = request.user
+    if attraction.user != request.user:
+            return redirect('index')
+    else:
+        form = AttractionPostForm(request.POST, instance=attraction)
+        if form.is_valid():
+            attraction = form.save(commit=True)
+            attraction.save()
+            return redirect('index')
+    return render(request, "travel/edit_attraction.html", {"form":form, "attraction":attraction})
 
-   
+
+
+
+
