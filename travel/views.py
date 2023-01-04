@@ -83,7 +83,7 @@ def attraction_details(request, pk):
             favorite.attraction = attraction
             favorite.user = user
             favorite.save()
-            return redirect(to='attraction_details', pk=pk)
+            return redirect(to='attractions_by_favorite')
     elif request.method == 'POST':
         form = CommentForm(data=request.POST)
         if form.is_valid():
