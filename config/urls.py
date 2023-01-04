@@ -36,6 +36,7 @@ urlpatterns = [
     path('attractions/<int:pk>',views.attraction_details, name='attraction_details'),
     path('attraction/new',views.add_attraction, name='add_attraction'),
     path('attractions/<int:pk>/comment',views.add_comment, name='add_comment'),
+    path('attractions/<int:pk>/delete', views.attraction_delete, name='attractiondelete'),
 
     
     path('api/', include(router.urls)),
