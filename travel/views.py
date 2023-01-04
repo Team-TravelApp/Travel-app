@@ -1,8 +1,27 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.defaultfilters import slugify
-from .models import AttractionPost, Following, Favorite, Comment 
-from .forms import CommentForm, AttractionPostForm, FavoriteForm
+from .models import AttractionPost, Following, Favorite, Comment, Profile
+from .forms import CommentForm, AttractionPostForm, FavoriteForm, ProfileForm
+from django.contrib.auth.decorators import login_required
 from taggit.models import Tag
+
+
+
+
+@login_required
+def profile_create(request):
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES)
+        user = request.user
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = user
+            profile.save()
+            return redirect("index")
+    else: 
+        form = ProfileForm()
+    return render(request, 'travel/profile_form.html', {'form': form})
+
 
 
 
