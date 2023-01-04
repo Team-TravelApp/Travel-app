@@ -8,6 +8,7 @@ from django.db import migrations, models
 import django.db.models.deletion
 import django.utils.timezone
 import django_countries.fields
+import django_countries.fields
 
 
 class Migration(migrations.Migration):

@@ -8,6 +8,7 @@
 <h1>{{ attraction.title }}</h1>
 <div>
     <div>
+        <a href="{% url 'attractiondelete' pk=attraction.pk %}">DELETE ATTRACTION</a>
        
         <p> Country: {{ attraction.country }} </p>
         <p> Star Rating: {{ attraction.star_rating }} </p>
@@ -20,6 +21,8 @@
         <h4> About this attraction: </h4>
         <p> {{ attraction.description }} </p>
         <a href="{% url 'add_comment' attraction.pk %}"><button>Add a Comment</button></a> 
+
+        
           
         <h1>Comments</h1>
         {% for comment in comments %}

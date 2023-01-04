@@ -77,6 +77,9 @@ class AttractionPost(models.Model):
     def star_rating(self):
         return "*"*self.interest_rating
 
+    class Meta:
+        ordering = ['-created_at']
+
 class Comment(models.Model): 
     comment_owner = models.ForeignKey(CustomUser,on_delete=models.CASCADE, related_name = 'comments')
     attraction = models.ForeignKey(AttractionPost,on_delete=models.CASCADE, related_name = 'comments', null=True, blank=True)

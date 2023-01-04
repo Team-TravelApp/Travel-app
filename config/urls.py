@@ -38,6 +38,7 @@ urlpatterns = [
     path('attractions/<int:pk>/comment',views.add_comment, name='add_comment'),
     path('profile/create',views.profile_create, name='profile_create'),
     
+    path('attractions/<int:pk>/delete', views.attraction_delete, name='attractiondelete'),
 
     
     path('api/', include(router.urls)),

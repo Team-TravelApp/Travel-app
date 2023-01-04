@@ -4,6 +4,11 @@ from .models import AttractionPost, Following, Favorite, Comment, Profile
 from .forms import CommentForm, AttractionPostForm, FavoriteForm, ProfileForm
 from django.contrib.auth.decorators import login_required
 from taggit.models import Tag
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
+
+
+
 
 
 
@@ -174,3 +179,16 @@ def Followee(request):
     def get_queryset(self):
         return AttractionPost.objects.filter(owner=self.kwargs['pk'])
 
+@login_required
+def attraction_delete(request, pk):
+    attraction = get_object_or_404(AttractionPost, pk=pk)
+    user = request.user
+    if attraction.user != request.user:
+            return redirect('index')
+    if request.method == "POST":
+        attraction.delete()
+        return redirect('index')
+    return render(request, 'travel/delete_attraction.html')
+
+
+   
