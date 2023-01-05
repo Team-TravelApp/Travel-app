@@ -2,6 +2,7 @@
 {% block content %}
 <h2>HOME</h2>
 
+<h4>Want to join? Make your profile <a href="{% url 'profile_create' %}">HERE</a></h4>
 
 
 <div>
@@ -12,7 +13,7 @@
         Most Recent Attractions added:
         {% for attraction in attractions %}
         <div>
-            <h5>Title: {{ attraction.title }}</h5>
+            <h5>{{ attraction.title }} (User: {{attraction.user}})</h5>
                 <p>Country: {{ attraction.country }}</p>
                 <p>Continent: {{ attraction.continent }}</p>
                 <p>About this attraction: {{ attraction.description }}</p>

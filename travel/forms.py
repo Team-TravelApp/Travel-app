@@ -1,8 +1,23 @@
 from django import forms
-from .models import Comment, CustomUser, AttractionPost, Favorite
+from .models import Comment, CustomUser, AttractionPost, Favorite, Profile
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 
+
+class ProfileForm(forms.ModelForm):
+    
+    class Meta:
+        model = Profile
+        fields = [
+            'user',
+            'bio',
+            'profile_pic',
+            'website_url',
+            'facebook_url', 
+            'twitter_url',
+            'instagram_url',
+            'home_country',
+        ]
 
 
 

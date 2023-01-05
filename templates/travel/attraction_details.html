@@ -3,11 +3,23 @@
 
 {% block content %}
 <body>
-    
+<a href="{% url 'index' %}">Home</a>
 
 <h1>{{ attraction.title }}</h1>
 <div>
     <div>
+        <button><a href="{% url 'attractiondelete' pk=attraction.pk %}">DELETE ATTRACTION</a></button>
+        <button><a href="{% url 'attractionedit' pk=attraction.pk %}">EDIT ATTRACTION</a></button>
+
+        <form action="{% url 'attractionedit' pk=attraction.pk %}" method="POST">  
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit"> Add to Favorites </button>
+            </form>
+
+
+
+
        
         <p> Country: {{ attraction.country }} </p>
         <p> Star Rating: {{ attraction.star_rating }} </p>
@@ -23,6 +35,8 @@
         <h4> About this attraction: </h4>
         <p> {{ attraction.description }} </p>
         <a href="{% url 'add_comment' attraction.pk %}"><button>Add a Comment</button></a> 
+
+        
           
         <h1>Comments</h1>
         {% for comment in comments %}

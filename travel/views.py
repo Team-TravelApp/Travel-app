@@ -1,9 +1,29 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.defaultfilters import slugify
-from .models import AttractionPost, Following, Favorite, Comment 
-from .forms import CommentForm, AttractionPostForm, FavoriteForm
+from .models import AttractionPost, Following, Favorite, Comment, Profile
+from .forms import CommentForm, AttractionPostForm, FavoriteForm, ProfileForm
 from taggit.models import Tag
-# from django.core.files.storage import FileSystemStorage
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
+
+
+
+
+@login_required
+def profile_create(request):
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES)
+        user = request.user
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = user
+            profile.save()
+            return redirect("index")
+    else: 
+        form = ProfileForm()
+    return render(request, 'travel/profile_form.html', {'form': form})
+
+
 
 
 def comment_detail(request, slug):
@@ -83,7 +103,7 @@ def attraction_details(request, pk):
             favorite.attraction = attraction
             favorite.user = user
             favorite.save()
-            return redirect(to='attraction_details', pk=pk)
+            return redirect(to='attractions_by_favorite')
     elif request.method == 'POST':
         form = CommentForm(data=request.POST)
         if form.is_valid():
@@ -179,4 +199,33 @@ def Followee(request):
 
     def get_queryset(self):
         return AttractionPost.objects.filter(owner=self.kwargs['pk'])
+
+@login_required
+def attraction_delete(request, pk):
+    attraction = get_object_or_404(AttractionPost, pk=pk)
+    user = request.user
+    if attraction.user != request.user:
+            return redirect('index')
+    if request.method == "POST":
+        attraction.delete()
+        return redirect('index')
+    return render(request, 'travel/delete_attraction.html')
+
+@login_required
+def attraction_edit(request, pk):
+    attraction = AttractionPost.objects.get(pk=pk)
+    user = request.user
+    if attraction.user != request.user:
+            return redirect('index')
+    else:
+        form = AttractionPostForm(request.POST, instance=attraction)
+        if form.is_valid():
+            attraction = form.save(commit=True)
+            attraction.save()
+            return redirect('index')
+    return render(request, "travel/edit_attraction.html", {"form":form, "attraction":attraction})
+
+
+
+
 

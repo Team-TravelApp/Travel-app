@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
-{% block content %}
+{% block content %} 
 
-<a href="{% url 'index' %}">Home</a>
 
-<h2>Edit Attraction:</h2>
+<h2>Make a profile</h2>
 
 <form method ="post" enctype="multipart/form-data"> 
     {% csrf_token %} 
@@ -11,3 +10,4 @@
     <button type="submit">Save</button>
 </form>
 {% endblock %} 
+
