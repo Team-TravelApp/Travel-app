@@ -37,6 +37,17 @@ def profile_detail(request, pk):
     return render(request, 'travel/profile_detail.html', context) 
 
 
+@login_required
+def ListFollowers(request, pk):
+    profile = Profile.objects.get(pk=pk)
+    followers = profile.followers.all()
+    context = {
+        'profile': profile,
+        'followers': followers,
+        }
+    return render(request, 'travel/followers_list.html', context)
+
+
 
 
 def comment_detail(request, slug):

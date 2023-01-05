@@ -41,6 +41,7 @@ urlpatterns = [
     path('attractions/<int:pk>/edit', views.attraction_edit, name='attractionedit'),
     path('profile/create',views.profile_create, name='profile_create'),
     path('profile/<int:pk>', views.profile_detail, name='profile_detail'),
+    path('profile/<int:pk>/followers', views.ListFollowers, name='followers-list'),
     
 
     

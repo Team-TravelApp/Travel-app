@@ -11,12 +11,12 @@ class ProfileForm(forms.ModelForm):
         fields = [
             'user',
             'bio',
+            'gender',
             'profile_pic',
-            'website_url',
-            'facebook_url', 
-            'twitter_url',
-            'instagram_url',
             'home_country',
+            'followers',
+            'website_url',
+            'social_url', 
         ]
 
 
