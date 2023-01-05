@@ -20,6 +20,30 @@ def __str__(self):
 
 
 
+class Profile(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE,default='',unique=True)
+    bio = models.TextField(max_length=200, null=True, blank=True)
+    profile_pic = models.ImageField(default='default.jpg', upload_to='images/profile_pics/')
+    home_country = models.CharField(max_length=30,null=True,blank=True)
+
+    ''' followers = 
+    following =
+    total_countries =
+    '''
+    #my_countries = models.CharField(max_length=30,null=True,blank=True)
+    #interest_rating = models.IntegerField
+    website_url = models.CharField(max_length=255, null=True, blank=True)
+    facebook_url = models.CharField(max_length=255, null=True, blank=True)
+    twitter_url = models.CharField(max_length=255, null=True, blank=True)
+    instagram_url = models.CharField(max_length=255, null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.user}s profile'
+
+
+
+
+
 class AttractionPost(models.Model): 
 
     CONTINENTS = [
