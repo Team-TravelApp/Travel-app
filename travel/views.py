@@ -27,11 +27,12 @@ def profile_create(request):
 
 @login_required
 def profile_detail(request, pk):
-    profile = get_object_or_404(Profile, pk=pk)
-    user = CustomUser.objects.filter(profile=pk)
+    user = CustomUser.objects.get(pk=pk)
+    profile = get_object_or_404(Profile, user=user)
     context = {
         'profile': profile, 
-        'user': user
+        'user': user,
+        'pk': pk
     }
     return render(request, 'travel/profile_detail.html', context) 
 
@@ -92,7 +93,8 @@ def tagged(request,slug):
 
 def index(request): 
     attractions = AttractionPost.objects.all()
-    return render(request, 'travel/index.html', {'attractions': attractions})
+    user = request.user
+    return render(request, 'travel/index.html', {'attractions': attractions, 'user': user})
 
 
 def attractions_by_favorite(request):
