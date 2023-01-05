@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<body>
+    <a href="{% url 'index' %}">Home</a>
+    
+    <p> {{ profile.profile_pic }}</p>
+    <h1>{{ profile.user }}</h1>
+    <p> Bio: {{ profile.bio }} </p>
+    <p> Home Country: {{ profile.home_country }} </p>
+    
+
+    
+
+</body>
+
+{% endblock %}
