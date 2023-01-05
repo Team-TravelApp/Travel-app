@@ -149,14 +149,29 @@ DATABASES = {
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+if env("USE_S3"):
+    AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
+    AWS_S3_CUSTOM_DOMAIN = 'team15travelapp2s.s3.amazonaws.com' 
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+    AWS_LOCATION = 'static'
+
+STATIC_URL = "https://team15travelapp2s/statics/" 
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = [os.path.join(BASE_DIR, 'media')]
 
 AUTH_USER_MODEL = 'travel.CustomUser'
 
-if not DEBUG: 
+
+if not DEBUG:
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 if env("RENDER"):
@@ -182,13 +197,3 @@ INTERNAL_IPS = [
 ]
 SIMPLE_BACKEND_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = 'index'
-
-if env("USE_S3"):
-    AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
-    AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
-    AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
-    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-    AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-        }
-    AWS_LOCATION = 'static'

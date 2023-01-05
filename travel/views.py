@@ -3,7 +3,7 @@ from django.template.defaultfilters import slugify
 from .models import AttractionPost, Following, Favorite, Comment 
 from .forms import CommentForm, AttractionPostForm, FavoriteForm
 from taggit.models import Tag
-
+# from django.core.files.storage import FileSystemStorage
 
 
 def comment_detail(request, slug):
@@ -114,7 +114,7 @@ def add_attraction(request):
     if request.method == 'GET':
         form = AttractionPostForm()
     else:
-        form = AttractionPostForm(data=request.POST)
+        form = AttractionPostForm(request.POST, request.FILES)
         if form.is_valid():
             attraction = form.save(commit=False)
             attraction.user = request.user
@@ -126,10 +126,11 @@ def add_attraction(request):
 
 def edit_attraction(request, pk):
     attraction = get_object_or_404(AttractionPost, pk=pk)
+    instance = AttractionPost.objects.get(pk=pk)
     if request.method == 'GET':
-        form = AttractionPostForm()
+        form = AttractionPostForm(instance=instance)
     else:
-        form = AttractionPostForm(data=request.PUT)
+        form = AttractionPostForm(request.POST, request.FILES)
         if form.is_valid():
             attraction = form.save(commit=False)
             attraction.user = request.user

@@ -19,6 +19,8 @@ django-debug-toolbar = "*"
 django-registration-redux = "*"
 boto3 = "*"
 django-storages = "*"
+pillow = "*"
+boto = "*"
 
 [dev-packages]
 

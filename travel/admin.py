@@ -9,6 +9,7 @@ class CustomUserAdmin(UserAdmin):
     model = CustomUser
     list_display = ["email", "username",]
 
+
 # Register your models here.
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(AttractionPost)
