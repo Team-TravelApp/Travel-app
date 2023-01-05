@@ -2,52 +2,101 @@
 {% load static %}
 
 {% block content %}
-<body>
-<a href="{% url 'index' %}">Home</a>
-
-<h1>{{ attraction.title }}</h1>
 <div>
-    <div>
-        <button><a href="{% url 'attractiondelete' pk=attraction.pk %}">DELETE ATTRACTION</a></button>
-        <button><a href="{% url 'attractionedit' pk=attraction.pk %}">EDIT ATTRACTION</a></button>
+    <h1 class="is-size-3">{{ attraction.title }}</h1>
 
-        <form action="{% url 'attractionedit' pk=attraction.pk %}" method="POST">  
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit"> Add to Favorites </button>
-            </form>
-
-
-
-
-       
-        <p> Country: {{ attraction.country }} </p>
-        <p> Star Rating: {{ attraction.star_rating }} </p>
-        <form action="{% url 'attraction_details' pk=attraction.pk %}" method="POST">  
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit"> Add to Favorites </button>
-        </form>
-        
-        <h4> About this attraction: </h4>
-        <p> {{ attraction.description }} </p>
-        <a href="{% url 'add_comment' attraction.pk %}"><button>Add a Comment</button></a> 
-
-        
-          
-        <h1>Comments</h1>
-        {% for comment in comments %}
-
-            
+    <!-- attraction image -->
+    <figure class="image is-128x128">
+        <img src="https://bulma.io/images/placeholders/128x128.png">
+    </figure>
+    {{ attraction_owner }}
+    {{ edit_enabled }}
+    <!-- attraction content -->
+    <div class="box">
+        <div class="is-flex is-justify-content-space-between mb-4">
             <div>
-                <i> "{{ comment.commenttext }}" </i>
-                <p> Commented By: {{comment.comment_owner.username}} </p>
-                <p> Comment Date: {{comment.created_at}} </p>
+                <span class="is-flex">
+                    <i class="fa-solid fa-globe"></i>
+                    <p>
+                        <strong>Country</strong>
+                        {{ attraction.country }}
+                    </p>
+                </span>
+                <span class="is-flex">
+                    <i class="fa-solid fa-earth-asia"></i>
+                    <p><strong>Continent</strong> {{ attraction.continent }}</p>
+                </span>
 
+                <span class="is-flex">
+                    <strong>Rating</strong>
+                    {% for x in attraction.star_rating %}
+                    ★
+                    {% endfor %}
+                </span>
             </div>
 
-    {% endfor %}
+            <!-- edit/delete icons -->
+            {% if attraction.user == request.user %}
+            <div>
+                <a href="{% url 'attractionedit' pk=attraction.pk %}"><i class="fa-solid fa-pen-to-square"></i>Edit</a>
+                <a href="{% url 'attractiondelete' pk=attraction.pk %}"><i class="fa-solid fa-trash"></i>Delete</a>
+            </div>
+            {% endif %}
+        </div>
+
+        <strong>
+            <p>Details</p>
+        </strong>
+        <p> {{ attraction.description }}</p>
+        <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed ante vitae felis viverra cursus.
+            Suspendisse
+            suscipit maximus consequat. Pellentesque eu lobortis ex, sit amet ornare velit. Duis interdum velit sed quam
+            consectetur condimentum. Integer lacinia mattis libero. Maecenas at eleifend est. Maecenas vel ullamcorper
+            lorem.</p>
+
+        {% if user.is_authenticated %}
+        <div class="is-flex is-justify-content-space-between">
+            <a href="{% url 'add_comment' attraction.pk %}">
+                <i class="fa-solid fa-message"></i>
+                Comment
+            </a>
+            <form action="{% url 'attraction_details' pk=attraction.pk %}" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <a type="submit"><i class="fa-regular fa-heart"></i>Favorite</a>
+            </form>
+        </div>
+        {% else %}
+        <div class="is-flex is-justify-content-space-between">
+            <p class="has-text-grey-light"><i class="fa-solid fa-message has-text-grey-light"></i>Comment<p>
+            <p class="has-text-grey-light"><i class="fa-regular fa-heart"></i>Favorite</p>
+        </div>
+        {% endif %}
+
+        <!-- comments section -->
+        {% for comment in comments %}
+        {% if not forloop.counter|divisibleby:2%}
+        <div class="sb-container is-flex is-justify-content-space-between is-align-items-center">
+            <div class="sb sb5">
+                <i> "{{ comment.commenttext }}" </i>
+            </div>
+            <div>
+                <p> <strong>Author</strong> {{comment.comment_owner.username}} </p>
+                <p> <strong>Published on</strong> {{comment.created_at}} </p>
+            </div>
+        </div>
+        {%endif%}
+        <div class="is-flex is-justify-content-space-between is-align-items-center">
+            <div>
+                <p> <strong>Commentor</strong> {{comment.comment_owner.username}} </p>
+                <p> <strong>Published on</strong> {{comment.created_at}} </p>
+            </div>
+            <div class="sb sb6">
+                <i> "{{ comment.commenttext }}" </i>
+            </div>
+        </div>
     </div>
 </div>
-</body>
+
+{% endfor %}
 {% endblock %}

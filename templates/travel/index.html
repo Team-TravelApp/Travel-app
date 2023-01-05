@@ -12,7 +12,7 @@
         <h5 class="is-size-5 has-text-weight-semibold	">{{ attraction.title }}</h5>
         <span class="is-flex">
             <i class="fa-solid fa-user"></i>
-            <p>Author</p>
+            <p><strong>Author</strong> {{attraction.user.username}}</p>
         </span>
         <span class="is-flex">
             <i class="fa-solid fa-globe"></i>
@@ -37,7 +37,9 @@
             <i class="fa-solid fa-tag"></i>
             <p>Tag: {{ attraction.tags }}</p>
         </span>
-        <button href="{% url 'attraction_details' attraction.pk %}">See More</button>
+        <button>
+            <a href="{% url 'attraction_details' attraction.pk %}">See More</a>
+        </button>
     </div>
 </div>
 {% endfor %}
