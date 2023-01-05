@@ -94,9 +94,9 @@ def attraction_details(request, pk):
     attraction = get_object_or_404(AttractionPost, pk=pk)
     comments = Comment.objects.filter(attraction=attraction)
     user = request.user
-    
+
     if request.method == 'POST':
-        
+
         form = FavoriteForm(data=request.POST)
         if form.is_valid():
             favorite = form.save(commit=False)
@@ -113,9 +113,10 @@ def attraction_details(request, pk):
     else:
         form = FavoriteForm()
         attraction = AttractionPost.objects.get(pk=pk)
-        
-    return render(request, "travel/attraction_details.html", {"attraction": attraction, 'form': form, "comments":comments})     
-    
+
+    return render(request, "travel/attraction_details.html", {"attraction": attraction, 'form': form, "comments": comments})
+
+
 def add_comment(request, pk):
     attraction = get_object_or_404(AttractionPost, pk=pk)
     comment = Comment.objects.filter(attraction=attraction)

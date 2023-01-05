@@ -19,7 +19,7 @@
                 <p>About this attraction: {{ attraction.description }}</p>
                 <p>Rating: {{ attraction.star_rating }}</p>
                 <p>Tag: {{ attraction.tags }}</p>
-                <a href="{% url 'attraction_details' attraction.pk %}" >Expand Attraction</a>
+                <a href="{% url 'attraction_details' pk=attraction.pk %}" >Expand Attraction</a>
         </div>
         {% endfor %}
     </h3>

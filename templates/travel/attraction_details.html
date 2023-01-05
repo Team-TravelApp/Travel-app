@@ -23,12 +23,13 @@
        
         <p> Country: {{ attraction.country }} </p>
         <p> Star Rating: {{ attraction.star_rating }} </p>
+        <p> Image: {{ attraction.image }} </p>
         <form action="{% url 'attraction_details' pk=attraction.pk %}" method="POST">  
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit"> Add to Favorites </button>
 
-        <button><a href="{% url 'edit_attraction' attraction.pk %}"> Edit attraction </button></a>
+        <button><a href="{% url 'attractionedit' attraction.pk %}"> Edit attraction </button></a>
 
         </form>
         
