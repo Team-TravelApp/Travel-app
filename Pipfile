@@ -17,6 +17,7 @@ django-taggit = "*"
 django-extensions = "*"
 django-debug-toolbar = "*"
 django-registration-redux = "*"
+pillow = "*"
 
 [dev-packages]
 
