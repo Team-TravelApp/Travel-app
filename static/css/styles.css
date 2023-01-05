@@ -1,4 +1,10 @@
 
+  .landscape-img {
+    width: 950px;
+    height: 400px;
+    object-fit: cover;
+  }
+
   .sb {
     width: 85%;
     margin-right: 30px;
@@ -8,11 +14,6 @@
     color: #00bfb6;
     font-family: arial;
     position: relative;
-  }
-  
-  .sb-container {
-    margin-bottom: 15px;
-    margin-top: 15px;
   }
   
   /* speech bubble 5 */
