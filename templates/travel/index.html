@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
+<h4>Want to join? Make your profile <a href="{% url 'profile_create' %}">HERE</a></h4>
+<button><a href="{% url 'profile_detail' pk=user.pk %}">My Profile</a></button>
 <button>
      <a href="{% url 'add_attraction' %}">
     Add a new attraction</a>

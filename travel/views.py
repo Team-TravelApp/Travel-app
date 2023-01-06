@@ -60,7 +60,7 @@ def profile_edit(request, pk):
             profile = form.save(commit=True)
             profile.save()
             return redirect('index')
-    return render(request, "travel/edit_attraction.html", {"form":form, "profile":profile})
+    return render(request, "travel/profile_edit.html", {"form":form, "profile":profile})
 
 
 @login_required
