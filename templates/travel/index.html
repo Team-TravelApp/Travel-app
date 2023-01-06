@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-<button href="{% url 'add_attraction' %}">
-    Add a new attraction
+<button>
+     <a href="{% url 'add_attraction' %}">
+    Add a new attraction</a>
 </button>
 {% for attraction in attractions %}
 <div class="box is-flex is-flex-direction-row card">
