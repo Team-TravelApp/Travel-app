@@ -48,6 +48,20 @@ def ListFollowers(request, pk):
     return render(request, 'travel/followers_list.html', context)
 
 
+@login_required
+def profile_edit(request, pk):
+    user = CustomUser.objects.get(pk=pk)
+    profile = get_object_or_404(Profile, user=user)
+    if profile.user != request.user:
+            return redirect('index')
+    else:
+        form = ProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            profile = form.save(commit=True)
+            profile.save()
+            return redirect('index')
+    return render(request, "travel/edit_attraction.html", {"form":form, "profile":profile})
+
 
 
 def comment_detail(request, slug):
