@@ -4,7 +4,7 @@ import random
 
 from django.core.management.base import BaseCommand
 
-from travel.models import User # Change this to reflect your app's name and name of your custom User model
+from travel.models import CustomUser # Change this to reflect your app's name and name of your custom User model
 from config import settings # Change this to reflect your app's name
 
 
@@ -15,7 +15,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if not settings.DEBUG:
-          user, created = User.objects.get_or_create(
+          user, created = CustomUser.objects.get_or_create(
                 username=settings.DJANGO_SUPERUSER_USERNAME
             )
           if created:
