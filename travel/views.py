@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.defaultfilters import slugify
-from .models import AttractionPost, Following, Favorite, Comment, Profile
+from .models import AttractionPost, Following, Favorite, Comment, Profile, CustomUser
 from .forms import CommentForm, AttractionPostForm, FavoriteForm, ProfileForm
 from taggit.models import Tag
 from django.contrib.auth.decorators import login_required
@@ -23,6 +23,56 @@ def profile_create(request):
         form = ProfileForm()
     return render(request, 'travel/profile_form.html', {'form': form})
 
+
+
+@login_required
+def profile_detail(request, pk):
+    user = CustomUser.objects.get(pk=pk)
+    profile = get_object_or_404(Profile, user=user)
+    context = {
+        'profile': profile, 
+        'user': user,
+        'pk': pk
+    }
+    return render(request, 'travel/profile_detail.html', context) 
+
+
+@login_required
+def ListFollowers(request, pk):
+    profile = Profile.objects.get(pk=pk)
+    followers = profile.followers.all()
+    context = {
+        'profile': profile,
+        'followers': followers,
+        }
+    return render(request, 'travel/followers_list.html', context)
+
+
+@login_required
+def profile_edit(request, pk):
+    user = CustomUser.objects.get(pk=pk)
+    profile = get_object_or_404(Profile, user=user)
+    if profile.user != request.user:
+            return redirect('index')
+    else:
+        form = ProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            profile = form.save(commit=True)
+            profile.save()
+            return redirect('index')
+    return render(request, "travel/edit_attraction.html", {"form":form, "profile":profile})
+
+
+@login_required
+def profile_delete(request, pk):
+    user = CustomUser.objects.get(pk=pk)
+    profile = get_object_or_404(Profile, user=user)
+    if profile.user != request.user:
+            return redirect('index')
+    if request.method == "POST":
+        profile.delete()
+        return redirect('index')
+    return render(request, 'travel/profile_delete.html')
 
 
 
@@ -80,7 +130,8 @@ def tagged(request,slug):
 
 def index(request): 
     attractions = AttractionPost.objects.all()
-    return render(request, 'travel/index.html', {'attractions': attractions})
+    user = request.user
+    return render(request, 'travel/index.html', {'attractions': attractions, 'user': user})
 
 
 def attractions_by_favorite(request):

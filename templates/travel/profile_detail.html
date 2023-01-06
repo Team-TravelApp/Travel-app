@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<body>
+    <button><a href="{% url 'profileedit' pk=profile.pk %}">EDIT PROFILE</a></button>
+    <button><a href="{% url 'profiledelete' pk=profile.pk %}">DELETE PROFILE</a></button>
+    <a href="{% url 'index' %}">Home</a>
+    
+    <p> {{ profile.profile_pic }}</p>
+    <h1>{{ profile.user }}</h1>
+    <p> Bio: {{ profile.bio }} </p>
+    <p> Home Country: {{ profile.home_country }} </p>
+    <p> Gender: {{ profile.gender }} </p>
+    <p> Followers: {{ profile.followers }} </p>
+    <p> Website: {{profile.website_url}} </p>
+    <p> Social Media : {{profile.social_url}} </p>
+    
+    
+
+    
+
+</body>
+
+{% endblock %}

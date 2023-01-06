@@ -19,6 +19,7 @@ from travel import views
 from api.router import router
 from api import views as api_views
 from django.conf.urls.static import static
+from django.views import View
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,6 +40,11 @@ urlpatterns = [
     path('attractions/<int:pk>/delete', views.attraction_delete, name='attractiondelete'),
     path('attractions/<int:pk>/edit', views.attraction_edit, name='attractionedit'),
     path('profile/create',views.profile_create, name='profile_create'),
+    path('profile/<int:pk>', views.profile_detail, name='profile_detail'),
+    path('profile/<int:pk>/followers', views.ListFollowers, name='followers-list'),
+    path('profile/<int:pk>/edit', views.profile_edit, name='profileedit'),
+    path('profile/<int:pk>/delete', views.profile_delete, name='profiledelete'),
+    
 
     
     path('api/', include(router.urls)),

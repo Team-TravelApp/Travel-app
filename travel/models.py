@@ -21,10 +21,18 @@ def __str__(self):
 
 
 class Profile(models.Model):
+    GENDER_CHOICES=(
+        ('Male','Male'),
+        ('Female','Female'),
+        ('Non-binary', 'Non-binary')
+    )
+
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE,default='',unique=True)
     bio = models.TextField(max_length=200, null=True, blank=True)
+    gender=models.CharField(max_length=100,choices=GENDER_CHOICES, null=True)
     profile_pic = models.ImageField(default='default.jpg', upload_to='images/profile_pics/')
     home_country = models.CharField(max_length=30,null=True,blank=True)
+    followers = models.ManyToManyField(CustomUser, blank=True, related_name='followers')
 
     ''' followers = 
     following =
@@ -33,9 +41,7 @@ class Profile(models.Model):
     #my_countries = models.CharField(max_length=30,null=True,blank=True)
     #interest_rating = models.IntegerField
     website_url = models.CharField(max_length=255, null=True, blank=True)
-    facebook_url = models.CharField(max_length=255, null=True, blank=True)
-    twitter_url = models.CharField(max_length=255, null=True, blank=True)
-    instagram_url = models.CharField(max_length=255, null=True, blank=True)
+    social_url = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return f'{self.user}s profile'
