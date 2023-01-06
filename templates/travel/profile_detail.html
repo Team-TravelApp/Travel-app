@@ -4,6 +4,7 @@
 {% block content %}
 
 <body>
+    <button><a href="{% url 'profileedit' pk=profile.pk %}">EDIT PROFILE</a></button>
     <a href="{% url 'index' %}">Home</a>
     
     <p> {{ profile.profile_pic }}</p>
