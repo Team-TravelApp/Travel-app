@@ -17,12 +17,12 @@
         </span>
         <span class="is-flex is-align-items-center icn">
             <i class="fa-solid fa-globe"></i>
-            <p>Country: {{ attraction.country }}</p>
+            <p><strong>Country</strong>: {{ attraction.country }}</p>
         </span>
 
         <span class="is-flex is-align-items-center icn">
             <i class="fa-solid fa-earth-asia"></i>
-            <p>Continent: {{ attraction.continent }}</p>
+            <p><strong>Continent</strong>: {{ attraction.continent }}</p>
         </span>
         <span class="is-flex is-align-items-center icn">
             <i class="fa-solid fa-circle-info"></i>
@@ -31,12 +31,12 @@
         <p>{{ attraction.description }}</p>
 
 
-        <span class="is-flex is-align-items-center">
-            <p>Rating:</p>
-            {% for x in attraction.star_rating %}
-            ★
-            {% endfor %}
-        </span>
+        <span class="is-flex mt-2">
+                    {% for x in attraction.star_rating %}
+                    ★
+                    {% endfor %}
+                    / 5 Stars
+                </span>
         <span class="is-flex is-align-items-center icn">
             <i class="fa-solid fa-tag"></i>
             <p>Tag: {{ attraction.tags }}</p>
