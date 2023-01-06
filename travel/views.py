@@ -5,6 +5,9 @@ from .forms import CommentForm, AttractionPostForm, FavoriteForm, ProfileForm
 from taggit.models import Tag
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from rest_framework.response import Response
+from django.core.files.storage import default_storage
+
 
 
 
@@ -213,7 +216,7 @@ def attraction_delete(request, pk):
     return render(request, 'travel/delete_attraction.html')
 
 @login_required
-def attraction_edit(request, pk):
+def edit_attraction(request, pk):
     attraction = AttractionPost.objects.get(pk=pk)
     user = request.user
     if attraction.user != request.user:

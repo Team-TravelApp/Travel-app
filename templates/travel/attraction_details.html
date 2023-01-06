@@ -8,10 +8,10 @@
 <h1>{{ attraction.title }}</h1>
 <div>
     <div>
-        <button><a href="{% url 'attractiondelete' pk=attraction.pk %}">DELETE ATTRACTION</a></button>
-        <button><a href="{% url 'attractionedit' pk=attraction.pk %}">EDIT ATTRACTION</a></button>
+        <button><a href="{% url 'attraction_delete' pk=attraction.pk %}">DELETE ATTRACTION</a></button>
+        <button><a href="{% url 'edit_attraction' pk=attraction.pk %}">EDIT ATTRACTION</a></button>
 
-        <form action="{% url 'attractionedit' pk=attraction.pk %}" method="POST">  
+        <form action="{% url 'edit_attraction' pk=attraction.pk %}" method="POST">  
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit"> Add to Favorites </button>
@@ -23,13 +23,13 @@
        
         <p> Country: {{ attraction.country }} </p>
         <p> Star Rating: {{ attraction.star_rating }} </p>
-        <p> Image: {{ attraction.image }} </p>
+        <p> Image: <img src="{{ attraction.image }}"> </p>
         <form action="{% url 'attraction_details' pk=attraction.pk %}" method="POST">  
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit"> Add to Favorites </button>
 
-        <button><a href="{% url 'attractionedit' attraction.pk %}"> Edit attraction </button></a>
+        <button><a href="{% url 'edit_attraction' attraction.pk %}"> Edit attraction </button></a>
 
         </form>
         

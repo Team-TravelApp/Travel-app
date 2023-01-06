@@ -16,7 +16,7 @@ import environ
 env = environ.Env(
     DEBUG=(bool, False),
     RENDER=(bool, False),
-    USE_S3=(bool, False)
+    USE_S3=(bool, False),
 )
 
 environ.Env.read_env()
@@ -151,7 +151,9 @@ DATABASES = {
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]
 
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 if env("USE_S3"):
     AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
@@ -161,12 +163,13 @@ if env("USE_S3"):
     AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
     AWS_LOCATION = 'static'
 
-STATIC_URL = "https://team15travelapp2s/statics/" 
+# STATIC_URL = "https://team15travelapp2s/statics/" 
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
 MEDIA_ROOT = [os.path.join(BASE_DIR, 'media')]
+
 
 AUTH_USER_MODEL = 'travel.CustomUser'
 

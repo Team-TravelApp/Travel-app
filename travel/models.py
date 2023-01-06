@@ -71,7 +71,7 @@ class AttractionPost(models.Model):
         MaxValueValidator(10),
         MinValueValidator(1),
     ])
-    image = models.ImageField(upload_to="images/", blank=True, null=True)
+    image = models.ImageField(upload_to="media/images/", blank=True, null=True)
 
     def __str__(self):
         return self.title
