@@ -2,52 +2,117 @@
 {% load static %}
 
 {% block content %}
-<body>
-<a href="{% url 'index' %}">Home</a>
+<div class="is-flex is-flex-direction-column is-align-items-center">
+    <h1 class="is-size-3">{{ attraction.title }}</h1>
 
-<h1>{{ attraction.title }}</h1>
-<div>
-    <div>
-        <button><a href="{% url 'attractiondelete' pk=attraction.pk %}">DELETE ATTRACTION</a></button>
-        <button><a href="{% url 'attractionedit' pk=attraction.pk %}">EDIT ATTRACTION</a></button>
+    <!-- attraction image -->
+    <img class="landscape-img mt-2 mb-4"
+        src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80">
 
-        <form action="{% url 'attractionedit' pk=attraction.pk %}" method="POST">  
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit"> Add to Favorites </button>
-            </form>
-
-
-
-
-       
-        <p> Country: {{ attraction.country }} </p>
-        <p> Star Rating: {{ attraction.star_rating }} </p>
-        <form action="{% url 'attraction_details' pk=attraction.pk %}" method="POST">  
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit"> Add to Favorites </button>
-        </form>
-        
-        <h4> About this attraction: </h4>
-        <p> {{ attraction.description }} </p>
-        <a href="{% url 'add_comment' attraction.pk %}"><button>Add a Comment</button></a> 
-
-        
-          
-        <h1>Comments</h1>
-        {% for comment in comments %}
-
-            
+    {{ attraction_owner }}
+    {{ edit_enabled }}
+    <!-- attraction content -->
+    <div class="box mb-6">
+        <div class="is-flex is-justify-content-space-between mb-6">
             <div>
-                <i> "{{ comment.commenttext }}" </i>
-                <p> Commented By: {{comment.comment_owner.username}} </p>
-                <p> Comment Date: {{comment.created_at}} </p>
+                <span class="is-flex">
+                    <i class="fa-solid fa-globe"></i>
+                    <p>
+                        <strong>Country</strong>
+                        {{ attraction.country }}
+                    </p>
+                </span>
+                <span class="is-flex">
+                    <i class="fa-solid fa-earth-asia"></i>
+                    <p><strong>Continent</strong> {{ attraction.continent }}</p>
+                </span>
 
+                <span class="is-flex mt-2">
+                    {% for x in attraction.star_rating %}
+                    ★
+                    {% endfor %}
+                    / 5 Stars
+                </span>
             </div>
 
-    {% endfor %}
-    </div>
-</div>
-</body>
-{% endblock %}
+            <!-- edit/delete icons -->
+
+            <div>
+                {% if attraction.user == request.user and user.is_authenticated %}
+                <a href="{% url 'attractionedit' pk=attraction.pk %}"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a href="{% url 'attractiondelete' pk=attraction.pk %}"><i class="fa-solid fa-trash"></i></a>
+                {% else %}
+                <p class="has-text-grey-light"><i class="fa-solid fa-pen-to-square"></i></p>
+                <p class="has-text-grey-light"><i class="fa-solid fa-trash"></i></p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <strong>
+                <p>Details</p>
+            </strong>
+            {% if attraction.details %}
+            <p> {{ attraction.description }}</p>
+            {% else %}
+            <p class="has-text-grey-light"> no details added.</p>
+            {% endif %}
+        </div>
+
+
+        <!-- comments section -->
+        <hr class="mt-3 mb-1">
+        <div class="is-flex is-justify-content-space-between is-align-items-center">
+            <strong>Comments</strong>
+            {% if user.is_authenticated %}
+            <div class="is-flex">
+                <a class="mr-2" href="{% url 'add_comment' attraction.pk %}">
+                    <i class="fa-solid fa-message"></i>
+                </a>
+                <form action="{% url 'attraction_details' pk=attraction.pk %}" method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <a type="submit"><i class="fa-regular fa-heart"></i></a>
+                </form>
+            </div>
+            {% else %}
+            <div class="is-flex">
+                <p class="has-text-grey-light"><i class="fa-solid fa-message has-text-grey-light"></i>
+                <p>
+                <p class="has-text-grey-light"><i class="fa-regular fa-heart has-text-gray-light"></i></p>
+            </div>
+            {% endif %}
+        </div>
+            <div>
+
+                {% if comments|length == 0 %}
+                <div class="container is-flex is-justify-content-center has-text-grey-light">Oops! There are no comments
+                    yet!
+                </div>
+                {% else %}
+                {% for comment in comments %}
+                {% if not forloop.counter|divisibleby:2%}
+                <div class="mt-6 mb-6 is-flex is-justify-content-space-between is-align-items-center">
+                    <div class="sb sb5">
+                        <p> {{ comment.commenttext }} </p>
+                    </div>
+                    <div>
+                        <p> <i class="fa-solid fa-user"></i> {{comment.comment_owner.username}} </p>
+                        <p> <i class="fa-solid fa-calendar-check"></i> {{comment.created_at}} </p>
+                    </div>
+                </div>
+                {%endif%}
+                <div class="is-flex is-justify-content-space-between is-align-items-center">
+                    <div>
+                        <p> <i class="fa-solid fa-user"></i> {{comment.comment_owner.username}} </p>
+                        <p> <i class="fa-solid fa-calendar-check"></i> {{comment.created_at}} </p>
+                    </div>
+                    <div class="sb sb6">
+                        <p> {{ comment.commenttext }} </p>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+        {% endif %}
+        {% endblock %}

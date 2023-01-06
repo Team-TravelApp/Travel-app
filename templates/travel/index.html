@@ -1,32 +1,50 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>HOME</h2>
+<button href="{% url 'add_attraction' %}">
+    Add a new attraction
+</button>
+{% for attraction in attractions %}
+<div class="box is-flex is-flex-direction-row card">
+    <figure class="image is-128x128">
+        <img src="https://bulma.io/images/placeholders/128x128.png">
+    </figure>
+    <div>
+        <h5 class="is-size-5 has-text-weight-bold" style="color: #084A5E">{{ attraction.title }}</h5>
 
-<h4>Want to join? Make your profile <a href="{% url 'profile_create' %}">HERE</a></h4>
-<button><a href="{% url 'profile_detail' pk=user.pk %}">My Profile</a></button>
+        <span class="is-flex icn">
+            <i class="fa-solid fa-user"></i>
+            <p><strong>Author</strong> {{attraction.user.username}}</p>
+        </span>
+        <span class="is-flex is-align-items-center icn">
+            <i class="fa-solid fa-globe"></i>
+            <p><strong>Country</strong>: {{ attraction.country }}</p>
+        </span>
 
-<div>
-    <button><a href="{% url 'add_attraction' %}">
-         Add a new attraction
-        </a></button>
-    <h3>
-        Most Recent Attractions added:
-        {% for attraction in attractions %}
-        <div>
-            <h5>{{ attraction.title }} (User: {{attraction.user}})</h5>
-                <p>Country: {{ attraction.country }}</p>
-                <p>Continent: {{ attraction.continent }}</p>
-                <p>About this attraction: {{ attraction.description }}</p>
-                <p>Rating: {{ attraction.star_rating }}</p>
-                <p>Tag: {{ attraction.tags }}</p>
-                <a href="{% url 'attraction_details' attraction.pk %}" >Expand Attraction</a>
-        </div>
-        {% endfor %}
-    </h3>
+        <span class="is-flex is-align-items-center icn">
+            <i class="fa-solid fa-earth-asia"></i>
+            <p><strong>Continent</strong>: {{ attraction.continent }}</p>
+        </span>
+        <span class="is-flex is-align-items-center icn">
+            <i class="fa-solid fa-circle-info"></i>
+            <p>About:</p>
+        </span>
+        <p>{{ attraction.description }}</p>
 
+
+        <span class="is-flex mt-2">
+                    {% for x in attraction.star_rating %}
+                    ★
+                    {% endfor %}
+                    / 5 Stars
+                </span>
+        <span class="is-flex is-align-items-center icn">
+            <i class="fa-solid fa-tag"></i>
+            <p>Tag: {{ attraction.tags }}</p>
+        </span>
+        <button>
+            <a href="{% url 'attraction_details' attraction.pk %}">See More</a>
+        </button>
+    </div>
 </div>
-
-
+{% endfor %}
 {% endblock %}
-
-
