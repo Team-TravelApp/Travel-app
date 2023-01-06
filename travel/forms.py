@@ -50,6 +50,7 @@ class AttractionPostForm(forms.ModelForm):
             'description',
             'interest_rating',
             'tags',
+            'attraction_pic',
             
         ]
         
