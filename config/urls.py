@@ -43,6 +43,7 @@ urlpatterns = [
     path('profile/<int:pk>', views.profile_detail, name='profile_detail'),
     path('profile/<int:pk>/followers', views.ListFollowers, name='followers-list'),
     path('profile/<int:pk>/edit', views.profile_edit, name='profileedit'),
+    path('profile/<int:pk>/delete', views.profile_delete, name='profiledelete'),
     
 
     

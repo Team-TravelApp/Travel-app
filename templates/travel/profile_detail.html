@@ -5,6 +5,7 @@
 
 <body>
     <button><a href="{% url 'profileedit' pk=profile.pk %}">EDIT PROFILE</a></button>
+    <button><a href="{% url 'profiledelete' pk=profile.pk %}">DELETE PROFILE</a></button>
     <a href="{% url 'index' %}">Home</a>
     
     <p> {{ profile.profile_pic }}</p>

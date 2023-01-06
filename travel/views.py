@@ -63,6 +63,18 @@ def profile_edit(request, pk):
     return render(request, "travel/edit_attraction.html", {"form":form, "profile":profile})
 
 
+@login_required
+def profile_delete(request, pk):
+    user = CustomUser.objects.get(pk=pk)
+    profile = get_object_or_404(Profile, user=user)
+    if profile.user != request.user:
+            return redirect('index')
+    if request.method == "POST":
+        profile.delete()
+        return redirect('index')
+    return render(request, 'travel/profile_delete.html')
+
+
 
 def comment_detail(request, slug):
     template_name = 'post_detail.html'
