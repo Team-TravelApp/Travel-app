@@ -4,36 +4,40 @@
     Add a new attraction
 </button>
 {% for attraction in attractions %}
-<div class="box is-flex is-flex-direction-row">
+<div class="box is-flex is-flex-direction-row card">
     <figure class="image is-128x128">
         <img src="https://bulma.io/images/placeholders/128x128.png">
     </figure>
     <div>
-        <h5 class="is-size-5 has-text-weight-semibold">{{ attraction.title }}</h5>
-        <span class="is-flex">
+        <h5 class="is-size-5 has-text-weight-bold" style="color: #084A5E">{{ attraction.title }}</h5>
+
+        <span class="is-flex icn">
             <i class="fa-solid fa-user"></i>
             <p><strong>Author</strong> {{attraction.user.username}}</p>
         </span>
-        <span class="is-flex">
+        <span class="is-flex is-align-items-center icn">
             <i class="fa-solid fa-globe"></i>
             <p>Country: {{ attraction.country }}</p>
         </span>
 
-        <span class="is-flex">
-            <i class="fa-regular fa-globe"></i>
+        <span class="is-flex is-align-items-center icn">
+            <i class="fa-solid fa-earth-asia"></i>
             <p>Continent: {{ attraction.continent }}</p>
         </span>
-        <span class="is-flex">
+        <span class="is-flex is-align-items-center icn">
             <i class="fa-solid fa-circle-info"></i>
-            <p>About this attraction: {{ attraction.description }}</p>
+            <p>About:</p>
         </span>
-        <span class="is-flex">
+        <p>{{ attraction.description }}</p>
+
+
+        <span class="is-flex is-align-items-center">
             <p>Rating:</p>
             {% for x in attraction.star_rating %}
             ★
             {% endfor %}
         </span>
-        <span class="is-flex">
+        <span class="is-flex is-align-items-center icn">
             <i class="fa-solid fa-tag"></i>
             <p>Tag: {{ attraction.tags }}</p>
         </span>

@@ -1,13 +1,51 @@
+  body {
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
+  }
+
+  nav {
+    background-color: #084A5E !important;
+  }
+
+  nav a {
+    color: white;
+  }
+
+  nav a:hover {
+    color: #C67006;
+  }
+
+  nav i {
+    color: white;
+    margin-right: 5px;
+  } 
+
+  hr {
+    margin: 0;
+  }
+  .card {
+    min-width: 75%;
+  }
+
+  .container {
+    height: 100vh;
+  }
+
+  .icn {
+    margin-right: 10px;
+  }
+
+  .icn i {
+    color: #C67006;
+  }
 
   .landscape-img {
-    width: 950px;
-    height: 400px;
+    width: 350px;
+    height: 175px;
     object-fit: cover;
   }
 
   .sb {
     width: 85%;
-    margin-right: 30px;
     border: 4px solid #00bfb6;
     padding: 20px;
     font-weight: 900;
@@ -17,7 +55,16 @@
   }
   
   /* speech bubble 5 */
+
+  .sb5 {
+    margin-right: 30px;
+  }
   
+  .sb6 {
+    margin-left: 30px;
+  }
+
+
   .sb5:before {
     content: "";
     width: 0px;
