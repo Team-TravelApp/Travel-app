@@ -7,6 +7,10 @@
     <button><a href="{% url 'profileedit' pk=user.pk %}">EDIT PROFILE</a></button>
     <button><a href="{% url 'profiledelete' pk=user.pk %}">DELETE PROFILE</a></button>
     <a href="{% url 'index' %}">Home</a>
+    <button>
+        <a href="{% url 'add_attraction' %}">
+       Add a new attraction</a>
+   </button>
     
     <p> {{ profile.profile_pic }}</p>
     <h1>{{ profile.user }}</h1>
