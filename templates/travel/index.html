@@ -1,19 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-<h4>Want to join? Make your profile <a href="{% url 'profile_create' %}">HERE</a></h4>
 
 
-{% if user.is_authenticated %}
 
-<button><a href="{% url 'profile_detail' pk=user.pk %}">My Profile</a></button>
-
-{% endif %}
+<h1>AttractionFeed</h1>
 
 
-<button>
-     <a href="{% url 'add_attraction' %}">
-    Add a new attraction</a>
-</button>
+
 {% for attraction in attractions %}
 <div class="box is-flex is-flex-direction-row card">
     <figure class="image is-128x128">
