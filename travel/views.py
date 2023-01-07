@@ -131,7 +131,8 @@ def tagged(request,slug):
 def index(request): 
     attractions = AttractionPost.objects.all()
     user = request.user
-    return render(request, 'travel/index.html', {'attractions': attractions, 'user': user})
+    form = AttractionPostForm()
+    return render(request, 'travel/index.html', {'attractions': attractions, 'user': user, 'form': form})
 
 
 def attractions_by_favorite(request):

@@ -22,12 +22,14 @@
   hr {
     margin: 0;
   }
+
   .card {
     min-width: 75%;
   }
 
   .container {
     height: 100vh;
+    overflow-x: hidden !important;
   }
 
   .icn {
@@ -43,6 +45,12 @@
     height: 175px;
     object-fit: cover;
   }
+  
+  .scroll {
+    height: 200px;
+    overflow: scroll;
+  }
+
 
   .sb {
     width: 85%;
