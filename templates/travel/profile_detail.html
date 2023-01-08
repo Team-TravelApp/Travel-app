@@ -2,10 +2,7 @@
 {% load static %}
 
 {% block content %}
-
-<body>
     <button><a href="{% url 'profileedit' pk=user.pk %}">EDIT PROFILE</a></button>
-    <button><a href="{% url 'profiledelete' pk=user.pk %}">DELETE PROFILE</a></button>
     <a href="{% url 'index' %}">Home</a>
     <button>
         <a href="{% url 'add_attraction' %}">
@@ -21,11 +18,4 @@
     <p> Followers: {{ profile.followers }} </p>
     <p> Website: {{profile.website_url}} </p>
     <p> Social Media : {{profile.social_url}} </p>
-    
-    
-
-    
-
-</body>
-
 {% endblock %}
