@@ -2,13 +2,6 @@
 {% load static %}
 
 {% block content %}
-
-<form method ="post" enctype="multipart/form-data"> 
-    {% csrf_token %} 
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-</form>
-
     <button><a href="{% url 'profileedit' pk=user.pk %}">EDIT PROFILE</a></button>
     <a href="{% url 'index' %}">Home</a>
     <button>

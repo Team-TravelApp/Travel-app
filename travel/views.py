@@ -55,8 +55,11 @@ def ListFollowers(request, pk):
 def profile_edit(request, pk):
     user = CustomUser.objects.get(pk=pk)
     profile = get_object_or_404(Profile, user=user)
+    
     if profile.user != request.user:
             return redirect('index')
+    elif request.method == 'GET':
+        form = ProfileForm(instance=profile)
     else:
         form = ProfileForm(request.POST, instance=profile)
         if form.is_valid():
