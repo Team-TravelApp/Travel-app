@@ -9,6 +9,8 @@ class CustomUserAdmin(UserAdmin):
     model = CustomUser
     list_display = ["email", "username",]
 
+
+
 # Register your models here.
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Profile)
@@ -16,3 +18,7 @@ admin.site.register(AttractionPost)
 admin.site.register(Comment)
 admin.site.register(Following)
 admin.site.register(Favorite)
+
+
+
+
