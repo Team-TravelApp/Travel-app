@@ -6,6 +6,7 @@ from taggit.models import Tag
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
+from django.http import HttpResponse
 
 
 
@@ -273,6 +274,29 @@ def attraction_edit(request, pk):
     return render(request, "travel/edit_attraction.html", {"form":form, "attraction":attraction})
 
 
+def attraction_pic_upload(request):
+
+    if request.method == 'POST':
+        form = AttractionPostForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            form.save()
+            return redirect('success')
+
+    else:
+        form = AttractionPostForm()
+    return render(request, 'attraction_pic_form', {'form': form})
 
 
+def success(request):
+    return HttpResponse('successfully uploaded')
 
+
+def attraction_pic_view(request):
+
+    if request.method == 'GET':
+        # getting all objects of attractionpost
+
+        AttractionPosts = AttractionPost.objects.all()
+        return render((request, 'display_attraction_pics.html',
+                      {'attraction_pics': AttractionPosts}))

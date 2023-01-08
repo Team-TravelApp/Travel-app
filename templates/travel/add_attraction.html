@@ -4,7 +4,7 @@
 <body>
     {% block content %}
 <h1>Add a new attraction</h1>
-    <form action="{% url 'add_attraction' %}" method="POST">
+    <form action="{% url 'add_attraction' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <div>

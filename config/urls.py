@@ -18,8 +18,10 @@ from django.urls import path, include
 from travel import views 
 from api.router import router
 from api import views as api_views
+from django.conf import settings
 from django.conf.urls.static import static
 from django.views import View
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -45,6 +47,7 @@ urlpatterns = [
     path('profile/<int:pk>/edit', views.profile_edit, name='profileedit'),
     path('profile/<int:pk>/delete', views.profile_delete, name='profiledelete'),
     path('search', views.search, name='search'),
+    path('attraction_pics', views.attraction_pic_view, name='attraction_pic_view'),
     
 
     
