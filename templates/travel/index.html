@@ -17,7 +17,7 @@
 {% for attraction in attractions %}
 <div class="box is-flex is-flex-direction-row card">
     <figure class="image is-128x128">
-        <img src="https://bulma.io/images/placeholders/128x128.png">
+        <img src="{{ attraction.attraction_pic_url }}">
     </figure>
     <div>
         <h5 class="is-size-5 has-text-weight-bold" style="color: #084A5E">{{ attraction.title }}</h5>

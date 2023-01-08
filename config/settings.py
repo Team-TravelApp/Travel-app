@@ -15,7 +15,8 @@ import environ
 
 env = environ.Env(
     DEBUG=(bool, False),
-	RENDER=(bool, False)
+    RENDER=(bool, False),
+    USE_S3=(bool, False),
 )
 
 
@@ -57,6 +58,7 @@ INSTALLED_APPS = [
     'django_countries',
     'taggit',
     'api',
+    'storages',
     
 ]
 
@@ -147,22 +149,30 @@ DATABASES = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+# STATIC_URL = "https://team15travelapp2s.s3.amazonaws.coms/statics/" 
+STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 
 AUTH_USER_MODEL = 'travel.CustomUser'
 
 if not DEBUG: 
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
+    # STATICFILES_STORAGE = 'myproject.storage.S3Storage'
 if env("RENDER"):
     ALLOWED_HOSTS.append(env("RENDER_EXTERNAL_HOSTNAME"))
     DJANGO_SUPERUSER_USERNAME=env("DJANGO_SUPERUSER_USERNAME") 
     DJANGO_SUPERUSER_PASSWORD=env("DJANGO_SUPERUSER_PASSWORD") 
     DJANGO_SUPERUSER_EMAIL=env("DJANGO_SUPERUSER_EMAIL")
+
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+MEDIA_URL = 'images/'
+MEDIA_ROOT = [os.path.join(BASE_DIR, 'images/')]
+
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

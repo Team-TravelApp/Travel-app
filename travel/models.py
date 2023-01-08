@@ -77,8 +77,8 @@ class AttractionPost(models.Model):
         MaxValueValidator(10),
         MinValueValidator(1),
     ])
-    attraction_pic = models.ImageField(upload_to="images/attractions", blank=True, null=True)
-
+    # attraction_pic = models.ImageField(upload_to="images/attractions", blank=True, null=True)
+    attraction_pic_url = models.CharField(max_length=500, blank=True, null=True)
     def __str__(self):
         return self.title
         
