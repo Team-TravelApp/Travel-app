@@ -2,17 +2,11 @@
  {% block content %} 
 
 
-<div>
-    <p> Add Attraction</p>
-<form action="{% url 'add_attraction' %}" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <div>
-        <button type="submit">Submit!</button>
-    </div>
-</form>
-<button><a href="{% url 'index' %}">Cancel</button></a>
-</div>
+ <button>
+    <a href="{% url 'add_attraction' %}">
+   Add a new attraction</a>
+</button>
+
 
 {% if attractions|length == 0 %}
 <div>No attractions in feed.</div>

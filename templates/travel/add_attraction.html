@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <p> Add Attraction</p>
+<form action="{% url 'add_attraction' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div>
+        <button type="submit">Submit!</button>
+    </div>
+</form>
+<button><a href="{% url 'index' %}">Cancel</button></a>
+{% endblock %}
