@@ -34,7 +34,6 @@ def profile_detail(request, pk):
     context = {
         'profile': profile, 
         'user': user,
-        'form': form,
         'pk': pk
     }
     return render(request, 'travel/profile_detail.html', context) 

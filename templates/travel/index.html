@@ -31,7 +31,7 @@
 
         <span class="is-flex icn">
             <i class="fa-solid fa-user mr-2"></i>
-            <p><strong>Author</strong> {{attraction.user.username}}</p>
+            <p><strong>Author</strong> <a href="{% url 'profile_detail' pk=attraction.user.pk %}">{{attraction.user.username}}</a></p>
         </span>
         <span class="is-flex is-align-items-center icn">
             <i class="fa-solid fa-globe mr-2"></i>
