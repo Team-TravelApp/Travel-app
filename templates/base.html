@@ -25,6 +25,23 @@
                         style="color: #C67006">LIST</span></p>
                 </div>
              </a>
+            </div>
+
+           
+
+            <form method='GET' action='{% url "search" %}'>
+                <input type='text' name='q' placeholder="Enter Search Keyword" value='{{ request.GET.q }}' id='intry'>
+                <input type='submit' value='Search' class='button_1' id='sub1'>
+            </form>
+
+            <a href="{% url 'profile_create' %}">Create Profile</a>
+
+            {% if user.is_authenticated %}
+
+            <a href="{% url 'profile_detail' pk=user.pk %}">My Profile</a>
+
+            {% endif %}
+
             <div class="is-flex">
                 <span class="is-flex is-align-items-center icn">
                     <a href="/"><i class="fa-solid fa-house"></i></a>

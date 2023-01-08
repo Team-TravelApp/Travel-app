@@ -5,6 +5,7 @@ from .forms import CommentForm, AttractionPostForm, FavoriteForm, ProfileForm
 from taggit.models import Tag
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 
 
 
@@ -75,6 +76,25 @@ def profile_delete(request, pk):
         profile.delete()
         return redirect('index')
     return render(request, 'travel/profile_delete.html')
+
+
+'''
+def search_tags(request):
+    if request.method == "POST": 
+        searched = request.POST['searched']
+        attraction = AttractionPost.objects.filter(user__contains='searched')
+        filtered_posts = AttractionPost.objects.filter(Q(content__contains=searched) | Q(title__contains=searched))
+        return render(request, 'travel/search_tags.html', {'searched': searched, 'attraction': attraction})
+    else:
+        return render(request, 'travel/search_tags.html', {})
+'''
+
+def search(request):
+    query = request.GET.get('q')
+    search = AttractionPost.objects.filter(Q(country__icontains=query) | Q(tags__icontains=query) | Q(title__icontains=query)| Q(continent__icontains=query))
+
+    return render(request, 'travel/search.html', {'search': search})
+
 
 
 

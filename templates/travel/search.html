@@ -1,0 +1,81 @@
+{% extends 'base.html' %} 
+
+{% block content %} 
+    <center>
+    
+    {% if search %}
+    
+        <h1> Search Results: </h1>
+        
+        {% for attraction in search %}
+         
+       <div class="is-flex is-flex-direction-column is-align-items-center">
+    <h1 class="is-size-3">{{ attraction.title }}</h1>
+
+    <!-- attraction image -->
+    <img class="landscape-img mt-2 mb-4"
+        src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80">
+
+    {{ attraction_owner }}
+    {{ edit_enabled }}
+    <!-- attraction content -->
+    <div class="box mb-6">
+        <div class="is-flex is-justify-content-space-between mb-6">
+            <div>
+                <span class="is-flex">
+                    <i class="fa-solid fa-globe"></i>
+                    <p>
+                        <strong>Country</strong>
+                        {{ attraction.country }}
+                    </p>
+                </span>
+                <span class="is-flex">
+                    <i class="fa-solid fa-earth-asia"></i>
+                    <p><strong>Continent</strong> {{ attraction.continent }}</p>
+                </span>
+
+                <span class="is-flex mt-2">
+                    {% for x in attraction.star_rating %}
+                    ★
+                    {% endfor %}
+                    / 5 Stars
+                </span>
+            </div>
+
+            <!-- edit/delete icons -->
+
+            <div>
+                {% if attraction.user == request.user and user.is_authenticated %}
+                <a href="{% url 'attractionedit' pk=attraction.pk %}"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a href="{% url 'attractiondelete' pk=attraction.pk %}"><i class="fa-solid fa-trash"></i></a>
+                {% else %}
+                <p class="has-text-grey-light"><i class="fa-solid fa-pen-to-square"></i></p>
+                <p class="has-text-grey-light"><i class="fa-solid fa-trash"></i></p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <strong>
+                <p>Details</p>
+            </strong>
+            {% if attraction.details %}
+            <p> {{ attraction.description }}</p>
+            {% else %}
+            <p class="has-text-grey-light"> no details added.</p>
+            {% endif %}
+        </div>
+
+        {% endfor %}
+     
+        {% else %}
+
+        <h1>....You Forgot To Search For An Attraction...</h1>
+
+    {% endif %}
+
+    </center>
+
+
+{% endblock %} 
+
