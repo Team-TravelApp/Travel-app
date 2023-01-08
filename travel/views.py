@@ -30,7 +30,7 @@ def profile_create(request):
 def profile_detail(request, pk):
     user = CustomUser.objects.get(pk=pk)
     profile = get_object_or_404(Profile, user=user)
-    form = ProfileForm(request.POST, instance=profile)
+
     context = {
         'profile': profile, 
         'user': user,
