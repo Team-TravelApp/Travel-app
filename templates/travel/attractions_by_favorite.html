@@ -1,21 +1,43 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %} 
+{% load static %} 
 {% block content %}
-<h1>Favorites</h1> 
-
-<a href="{% url 'index' %}">Home</a>
+<h1>Favorites</h1>
 
 {% for favorite in favorites %}
-    
-        
-            
-            <div>
-                <h5>Title: {{ favorite.attraction.title }}</h5>
-                <p>Country: {{ favorite.attraction.country }}</p>
-                <p>About this attraction: {{ favorite.attraction.description }}</p>
-                <p>Rating: {{ favorite.attraction.star_rating }}</p>
-                 
-            </div>
+<div class="box is-flex is-flex-direction-column card is-justify-content-space-evenly is-align-items-center">
+  <figure class="image is-128x128">
+      <img src="https://bulma.io/images/placeholders/128x128.png" />
+  </figure>
+  <div>
+      <h5 class="is-size-5 has-text-weight-bold mb-2 mt-2" style="color: #084a5e">
+          {{ favorite.attraction.title }}
+      </h5>
 
-{% endfor %}
+      <span class="is-flex icn">
+          <i class="fa-solid fa-user mr-2"></i>
+          <p><strong>Author</strong> {{ favorite.attraction.user.username }}</p>
+      </span>
+      <span class="is-flex is-align-items-center icn">
+          <i class="fa-solid fa-globe mr-2"></i>
+          <p><strong>Country</strong> {{ favorite.attraction.country }}</p>
+      </span>
+
+      <span class="is-flex is-align-items-center icn">
+          <i class="fa-solid fa-earth-asia mr-2"></i>
+          <p><strong>Continent</strong> {{ favorite.attraction.continent }}</p>
+      </span>
+
+      <span class="is-flex mt-2">
+          <p><strong>Rating</strong>{% for x in favorite.attraction.star_rating %} <span>★</span> {% endfor %} / 5 Stars</p>
+      </span>
+      <span class="is-flex is-align-items-center icn">
+          <i class="fa-solid fa-tag mr-2"></i>
+          <p>Tag: {{ favorite.attraction.tags }}</p>
+      </span>
+      <button class="button mt-2">
+          <a href="{% url 'attraction_details' favorite.attraction.pk %}">See More</a>
+      </button>
+  </div>
+</div>
+{% endfor %} 
 {% endblock %}

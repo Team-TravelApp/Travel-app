@@ -72,7 +72,7 @@
                 <form action="{% url 'attraction_details' pk=attraction.pk %}" method="POST">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <a type="submit"><i class="fa-regular fa-heart"></i></a>
+                    <button type="submit" class="favorite"><i class="fa-regular fa-heart"></i></button>
                 </form>
             </div>
             {% else %}

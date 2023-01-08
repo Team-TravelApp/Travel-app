@@ -29,9 +29,11 @@ def profile_create(request):
 def profile_detail(request, pk):
     user = CustomUser.objects.get(pk=pk)
     profile = get_object_or_404(Profile, user=user)
+    form = ProfileForm(request.POST, instance=profile)
     context = {
         'profile': profile, 
         'user': user,
+        'form': form,
         'pk': pk
     }
     return render(request, 'travel/profile_detail.html', context) 
@@ -166,7 +168,7 @@ def attraction_details(request, pk):
         form = FavoriteForm()
         attraction = AttractionPost.objects.get(pk=pk)
         
-    return render(request, "travel/attraction_details.html", {"attraction": attraction, 'form': form, "comments":comments})     
+    return render(request, "travel/attraction_details.html", {"attraction": attraction, 'form': form, "comments":comments})    
 
 @login_required
 def add_comment(request,pk):

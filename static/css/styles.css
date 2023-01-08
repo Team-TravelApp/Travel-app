@@ -23,13 +23,8 @@
     margin: 0;
   }
 
-  .card {
-    min-width: 75%;
-  }
-
-  .container {
-    height: 100vh;
-    overflow-x: hidden !important;
+  .box {
+    width: 75%; 
   }
 
   .icn {
@@ -49,6 +44,20 @@
   .scroll {
     height: 200px;
     overflow: scroll;
+    min-width: 85%;
+  }
+
+  .favorite {
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    /*optional*/
+    font-family: arial, sans-serif;
+    /*input has OS specific font-family*/
+    color: #069;
+    text-decoration: underline;
+    cursor: pointer;
+  
   }
 
 

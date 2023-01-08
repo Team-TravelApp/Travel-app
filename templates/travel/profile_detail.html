@@ -3,7 +3,12 @@
 
 {% block content %}
 
-<body>
+<form method ="post" enctype="multipart/form-data"> 
+    {% csrf_token %} 
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+
     <button><a href="{% url 'profileedit' pk=user.pk %}">EDIT PROFILE</a></button>
     <button><a href="{% url 'profiledelete' pk=user.pk %}">DELETE PROFILE</a></button>
     <a href="{% url 'index' %}">Home</a>
@@ -20,11 +25,4 @@
     <p> Followers: {{ profile.followers }} </p>
     <p> Website: {{profile.website_url}} </p>
     <p> Social Media : {{profile.social_url}} </p>
-    
-    
-
-    
-
-</body>
-
 {% endblock %}
