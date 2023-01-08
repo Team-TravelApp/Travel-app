@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<a href="{% url 'index' %}">Home</a>
+
+<h2>Edit Attraction:</h2>
+
+<form method ="post" enctype="multipart/form-data"> 
+    {% csrf_token %} 
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+{% endblock %} 
