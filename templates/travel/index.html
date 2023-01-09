@@ -5,7 +5,7 @@
 </br>
 
  <form method='GET' action='{% url "search" %}'>
-    <input type='text' name='q' placeholder="Enter Search Keyword" value='{{ request.GET.q }}' id='intry'>
+    <input type='text' name='q' placeholder="Search for a place" value='{{ request.GET.q }}' id='intry'>
     <input type='submit' value='Search' class='button_1' id='sub1'>
 </form>
 
@@ -17,6 +17,7 @@
    Add a new attraction</a>
 </button>
 {% endif %}
+
 </br>
 
 {% if attractions|length == 0 %}

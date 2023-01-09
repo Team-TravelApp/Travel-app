@@ -40,8 +40,8 @@ class Profile(models.Model):
     '''
     #my_countries = models.CharField(max_length=30,null=True,blank=True)
     #interest_rating = models.IntegerField
-    website_url = models.CharField(max_length=255, null=True, blank=True)
-    social_url = models.CharField(max_length=255, null=True, blank=True)
+    website_url = models.URLField(max_length=255, null=True, blank=True)
+    social_url = models.URLField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return f'{self.user}s profile'
