@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
  {% block content %} 
 
+</br>
+</br>
+
+ <form method='GET' action='{% url "search" %}'>
+    <input type='text' name='q' placeholder="Enter Search Keyword" value='{{ request.GET.q }}' id='intry'>
+    <input type='submit' value='Search' class='button_1' id='sub1'>
+</form>
+
+</br>
 
  <button>
     <a href="{% url 'add_attraction' %}">
    Add a new attraction</a>
 </button>
 
+</br>
 
 {% if attractions|length == 0 %}
 <div>No attractions in feed.</div>
