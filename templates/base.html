@@ -29,16 +29,11 @@
 
            
 
-            <form method='GET' action='{% url "search" %}'>
-                <input type='text' name='q' placeholder="Enter Search Keyword" value='{{ request.GET.q }}' id='intry'>
-                <input type='submit' value='Search' class='button_1' id='sub1'>
-            </form>
-
-            <a href="{% url 'profile_create' %}">Create Profile</a>
+            <a href="{% url 'profile_create' %}"><i class="fa-solid fa-user-plus"></i></a>
 
             {% if user.is_authenticated %}
 
-            <a href="{% url 'profile_detail' pk=user.pk %}">My Profile</a>
+            <a href="{% url 'profile_detail' pk=user.pk %}"><i class="fa-solid fa-user"></i></a>
 
             {% endif %}
 

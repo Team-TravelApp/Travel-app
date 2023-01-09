@@ -9,12 +9,10 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = [
-            'user',
             'bio',
             'gender',
             'profile_pic',
             'home_country',
-            'followers',
             'website_url',
             'social_url', 
         ]
