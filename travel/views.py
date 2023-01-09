@@ -30,10 +30,12 @@ def profile_create(request):
 def profile_detail(request, pk):
     user = CustomUser.objects.get(pk=pk)
     profile = get_object_or_404(Profile, user=user)
-
+    attractions = AttractionPost.objects.filter(user=user)
+    #posts = AttractionPost.objects.filter(tags=tag)
     context = {
         'profile': profile, 
         'user': user,
+        'attractions': attractions,
         'pk': pk
     }
     return render(request, 'travel/profile_detail.html', context) 
