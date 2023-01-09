@@ -31,11 +31,12 @@ def profile_detail(request, pk):
     user = CustomUser.objects.get(pk=pk)
     profile = get_object_or_404(Profile, user=user)
     attractions = AttractionPost.objects.filter(user=user)
-    #posts = AttractionPost.objects.filter(tags=tag)
+    favorites = Favorite.objects.filter(user=user)
     context = {
         'profile': profile, 
         'user': user,
         'attractions': attractions,
+        'favorites': favorites,
         'pk': pk
     }
     return render(request, 'travel/profile_detail.html', context) 
