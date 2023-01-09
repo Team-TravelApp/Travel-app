@@ -5,6 +5,14 @@
 {% block content %}
 <div class="is-flex is-flex-direction-column is-align-items-center">
     <h1 class="is-size-3">{{ attraction.title }}</h1>
+    <div class="is-flex">
+        <form action="{% url 'attraction_details' pk=attraction.pk %}" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="favorite"><i class="fa-regular fa-heart"></i>  ADD TO FAVORITES </button>
+        </form>
+    </div>
+
 
     <!-- attraction image -->
     {% if attraction.attraction_pic %}
@@ -62,7 +70,7 @@
             <strong>
                 <p>Details</p>
             </strong>
-            {% if attraction.details %}
+            {% if attraction.description %}
             <p> {{ attraction.description }}</p>
             {% else %}
             <p class="has-text-grey-light"> no details added.</p>
@@ -79,17 +87,11 @@
                 <a class="mr-2" href="{% url 'add_comment' attraction.pk %}">
                     <i class="fa-solid fa-message"></i>
                 </a>
-                <form action="{% url 'attraction_details' pk=attraction.pk %}" method="POST">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="favorite"><i class="fa-regular fa-heart"></i></button>
-                </form>
             </div>
             {% else %}
             <div class="is-flex">
                 <p class="has-text-grey-light"><i class="fa-solid fa-message has-text-grey-light"></i>
                 <p>
-                <p class="has-text-grey-light"><i class="fa-regular fa-heart has-text-gray-light"></i></p>
             </div>
             {% endif %}
         </div>

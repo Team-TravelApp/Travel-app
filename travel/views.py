@@ -33,11 +33,12 @@ def profile_detail(request, pk):
     user = CustomUser.objects.get(pk=pk)
     profile = get_object_or_404(Profile, user=user)
     attractions = AttractionPost.objects.filter(user=user)
-    #posts = AttractionPost.objects.filter(tags=tag)
+    favorites = Favorite.objects.filter(user=user)
     context = {
         'profile': profile, 
         'user': user,
         'attractions': attractions,
+        'favorites': favorites,
         'pk': pk
     }
     return render(request, 'travel/profile_detail.html', context) 
@@ -206,11 +207,13 @@ def add_comment(request,pk):
         form = CommentForm(data=request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
+            comment.comment_owner = request.user
             comment.attraction = attraction
             comment.save()
             return redirect(to='attraction_details', pk=pk)
     return render(request, "travel/add_comment.html", {"form":form, "attraction":attraction})
 
+@login_required
 def add_attraction(request):
     if request.method == 'GET':
         form = AttractionPostForm()

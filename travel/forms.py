@@ -10,7 +10,6 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = [
             'bio',
-            'gender',
             'profile_pic',
             'home_country',
             'website_url',
@@ -22,7 +21,7 @@ class ProfileForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ('comment_owner', 'commenttext')
+        fields = ['commenttext']
 
 class CustomUserCreationForm(UserCreationForm):
 
