@@ -11,11 +11,12 @@
 
 </br>
 
+{% if user.is_authenticated %}
  <button>
     <a href="{% url 'add_attraction' %}">
    Add a new attraction</a>
 </button>
-
+{% endif %}
 </br>
 
 {% if attractions|length == 0 %}
