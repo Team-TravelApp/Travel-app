@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.http import HttpResponse
+from django.views.generic import ListView
 
 
 
@@ -207,7 +208,7 @@ def add_attraction(request):
     if request.method == 'GET':
         form = AttractionPostForm()
     else:
-        form = AttractionPostForm(data=request.POST)
+        form = AttractionPostForm(request.POST, request.FILES)
         if form.is_valid():
             attraction = form.save(commit=False)
             attraction.user = request.user
@@ -273,30 +274,8 @@ def attraction_edit(request, pk):
             return redirect('index')
     return render(request, "travel/edit_attraction.html", {"form":form, "attraction":attraction})
 
-
-def attraction_pic_upload(request):
-
-    if request.method == 'POST':
-        form = AttractionPostForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            form.save()
-            return redirect('success')
-
-    else:
-        form = AttractionPostForm()
-    return render(request, 'attraction_pic_form', {'form': form})
-
-
-def success(request):
-    return HttpResponse('successfully uploaded')
-
-
-def attraction_pic_view(request):
-
+def display_attraction_pic(request, pk):
     if request.method == 'GET':
-        # getting all objects of attractionpost
 
-        AttractionPosts = AttractionPost.objects.all()
-        return render((request, 'display_attraction_pics.html',
-                      {'attraction_pics': AttractionPosts}))
+        attraction_pic = AttractionPost.objects.get(pk=pk)
+        return render(request, 'attraction_details.html', {'attraction_pic': attraction_pic})

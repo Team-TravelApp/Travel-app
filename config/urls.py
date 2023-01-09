@@ -47,8 +47,7 @@ urlpatterns = [
     path('profile/<int:pk>/edit', views.profile_edit, name='profileedit'),
     path('profile/<int:pk>/delete', views.profile_delete, name='profiledelete'),
     path('search', views.search, name='search'),
-    path('attraction_pics', views.attraction_pic_view, name='attraction_pic_view'),
-    
+    path('display_attraction_pic', views.display_attraction_pic, name='display_attraction_pic'),
 
     
     path('api/', include(router.urls)),
@@ -57,8 +56,7 @@ urlpatterns = [
     path('api/mycomments/', api_views.MyComments.as_view(), name="my_comments"),
     path('following/', api_views.FollowingListCreateView.as_view(), name='Following-list'),
 
-]
+] 
 
-
-
-
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
