@@ -32,9 +32,12 @@ def profile_create(request):
 def profile_detail(request, pk):
     user = CustomUser.objects.get(pk=pk)
     profile = get_object_or_404(Profile, user=user)
+    attractions = AttractionPost.objects.filter(user=user)
+    #posts = AttractionPost.objects.filter(tags=tag)
     context = {
         'profile': profile, 
         'user': user,
+        'attractions': attractions,
         'pk': pk
     }
     return render(request, 'travel/profile_detail.html', context) 
@@ -55,8 +58,11 @@ def ListFollowers(request, pk):
 def profile_edit(request, pk):
     user = CustomUser.objects.get(pk=pk)
     profile = get_object_or_404(Profile, user=user)
+    
     if profile.user != request.user:
             return redirect('index')
+    elif request.method == 'GET':
+        form = ProfileForm(instance=profile)
     else:
         form = ProfileForm(request.POST, instance=profile)
         if form.is_valid():
@@ -153,7 +159,8 @@ def tagged(request,slug):
 def index(request): 
     attractions = AttractionPost.objects.all()
     user = request.user
-    return render(request, 'travel/index.html', {'attractions': attractions, 'user': user})
+    form = AttractionPostForm()
+    return render(request, 'travel/index.html', {'attractions': attractions, 'user': user, 'form': form})
 
 
 def attractions_by_favorite(request):
@@ -187,7 +194,7 @@ def attraction_details(request, pk):
         form = FavoriteForm()
         attraction = AttractionPost.objects.get(pk=pk)
         
-    return render(request, "travel/attraction_details.html", {"attraction": attraction, 'form': form, "comments":comments})     
+    return render(request, "travel/attraction_details.html", {"attraction": attraction, 'form': form, "comments":comments})    
 
 @login_required
 def add_comment(request,pk):

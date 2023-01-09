@@ -75,7 +75,7 @@
                 <form action="{% url 'attraction_details' pk=attraction.pk %}" method="POST">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <a type="submit"><i class="fa-regular fa-heart"></i></a>
+                    <button type="submit" class="favorite"><i class="fa-regular fa-heart"></i></button>
                 </form>
             </div>
             {% else %}
@@ -94,7 +94,6 @@
                 </div>
                 {% else %}
                 {% for comment in comments %}
-                {% if not forloop.counter|divisibleby:2%}
                 <div class="mt-6 mb-6 is-flex is-justify-content-space-between is-align-items-center">
                     <div class="sb sb5">
                         <p> {{ comment.commenttext }} </p>
@@ -104,18 +103,7 @@
                         <p> <i class="fa-solid fa-calendar-check"></i> {{comment.created_at}} </p>
                     </div>
                 </div>
-                {%endif%}
-                <div class="is-flex is-justify-content-space-between is-align-items-center">
-                    <div>
-                        <p> <i class="fa-solid fa-user"></i> {{comment.comment_owner.username}} </p>
-                        <p> <i class="fa-solid fa-calendar-check"></i> {{comment.created_at}} </p>
-                    </div>
-                    <div class="sb sb6">
-                        <p> {{ comment.commenttext }} </p>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
-
-        {% endfor %}
         {% endif %}
         {% endblock %}
