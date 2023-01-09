@@ -2,12 +2,10 @@
 {% load static %}
 
 {% block content %}
-</br>
-  
-    <button>
-        <a href="{% url 'add_attraction' %}">
-       Add a new attraction</a>
-   </button>
+
+
+
+
 </br>
     
     <p> {{ profile.profile_pic }}</p>
@@ -19,8 +17,14 @@
 
 </br>
 
-<button><a href="{% url 'profileedit' pk=user.pk %}">EDIT PROFILE</a></button>
+<button><a href="{% url 'profileedit' pk=user.pk %}">Edit Profile</a></button>
 
+<button><a href="{% url 'attractions_by_favorite' %}">My Favorites</a></button>
+  
+<button>
+    <a href="{% url 'add_attraction' %}">
+   Add a new attraction</a>
+</button>
 </br>
 
     {% for attraction in attractions %}
