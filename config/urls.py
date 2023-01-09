@@ -18,8 +18,10 @@ from django.urls import path, include
 from travel import views 
 from api.router import router
 from api import views as api_views
+from django.conf import settings
 from django.conf.urls.static import static
 from django.views import View
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -45,7 +47,7 @@ urlpatterns = [
     path('profile/<int:pk>/edit', views.profile_edit, name='profileedit'),
     path('profile/<int:pk>/delete', views.profile_delete, name='profiledelete'),
     path('search', views.search, name='search'),
-    
+    path('display_attraction_pic', views.display_attraction_pic, name='display_attraction_pic'),
 
     
     path('api/', include(router.urls)),
@@ -54,8 +56,4 @@ urlpatterns = [
     path('api/mycomments/', api_views.MyComments.as_view(), name="my_comments"),
     path('following/', api_views.FollowingListCreateView.as_view(), name='Following-list'),
 
-]
-
-
-
-
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

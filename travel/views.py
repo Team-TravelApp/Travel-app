@@ -6,6 +6,8 @@ from taggit.models import Tag
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
+from django.http import HttpResponse
+from django.views.generic import ListView
 
 
 
@@ -216,7 +218,7 @@ def add_attraction(request):
     if request.method == 'GET':
         form = AttractionPostForm()
     else:
-        form = AttractionPostForm(data=request.POST)
+        form = AttractionPostForm(request.POST, request.FILES)
         if form.is_valid():
             attraction = form.save(commit=False)
             attraction.user = request.user
@@ -282,7 +284,8 @@ def attraction_edit(request, pk):
             return redirect('index')
     return render(request, "travel/edit_attraction.html", {"form":form, "attraction":attraction})
 
+def display_attraction_pic(request, pk):
+    if request.method == 'GET':
 
-
-
-
+        attraction_pic = AttractionPost.objects.get(pk=pk)
+        return render(request, 'attraction_details.html', {'attraction_pic': attraction_pic})
