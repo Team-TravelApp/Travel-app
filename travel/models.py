@@ -74,7 +74,7 @@ class AttractionPost(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     interest_rating = models.IntegerField(default=1,
     validators = [
-        MaxValueValidator(10),
+        MaxValueValidator(5),
         MinValueValidator(1),
     ])
     attraction_pic = models.ImageField(upload_to="images/attractions", blank=True, null=True)
