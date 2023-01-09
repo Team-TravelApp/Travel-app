@@ -13,10 +13,10 @@
         </form>
     </div>
 
-
+    
     <!-- attraction image -->
     {% if attraction.attraction_pic %}
-
+</br>
     <img class="landscape-img mt-2 mb-4"
     src="{{ attraction.attraction_pic.url }}">
    
@@ -27,6 +27,16 @@
 
     {% endif %}
 
+    <div>
+        {% if attraction.user == request.user and user.is_authenticated %}
+        <a href="{% url 'attractionedit' pk=attraction.pk %}"><i class="fa-solid fa-pen-to-square"></i></a>
+        <a href="{% url 'attractiondelete' pk=attraction.pk %}"><i class="fa-solid fa-trash"></i></a>
+        {% else %}
+        <p class="has-text-grey-light"><i class="fa-solid fa-pen-to-square"></i></p>
+        <p class="has-text-grey-light"><i class="fa-solid fa-trash"></i></p>
+        {% endif %}
+    </div>
+    </br
     {{ attraction_owner }}
     {{ edit_enabled }}
     <!-- attraction content -->
@@ -34,14 +44,13 @@
         <div class="is-flex is-justify-content-space-between mb-6">
             <div>
                 <span class="is-flex">
-                    <i class="fa-solid fa-globe"></i>
                     <p>
                         <strong>Country</strong>
                         {{ attraction.country }}
                     </p>
                 </span>
                 <span class="is-flex">
-                    <i class="fa-solid fa-earth-asia"></i>
+                    
                     <p><strong>Continent</strong> {{ attraction.continent }}</p>
                 </span>
 
@@ -55,20 +64,12 @@
 
             <!-- edit/delete icons -->
 
-            <div>
-                {% if attraction.user == request.user and user.is_authenticated %}
-                <a href="{% url 'attractionedit' pk=attraction.pk %}"><i class="fa-solid fa-pen-to-square"></i></a>
-                <a href="{% url 'attractiondelete' pk=attraction.pk %}"><i class="fa-solid fa-trash"></i></a>
-                {% else %}
-                <p class="has-text-grey-light"><i class="fa-solid fa-pen-to-square"></i></p>
-                <p class="has-text-grey-light"><i class="fa-solid fa-trash"></i></p>
-                {% endif %}
-            </div>
+            
         </div>
 
         <div class="mb-6">
             <strong>
-                <p>Details</p>
+                <p><i class="fa-solid fa-earth-asia"></i> Details </p>
             </strong>
             {% if attraction.description %}
             <p> {{ attraction.description }}</p>
