@@ -56,7 +56,4 @@ urlpatterns = [
     path('api/mycomments/', api_views.MyComments.as_view(), name="my_comments"),
     path('following/', api_views.FollowingListCreateView.as_view(), name='Following-list'),
 
-] 
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
