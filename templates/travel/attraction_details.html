@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
+
 {% block content %}
 <div class="is-flex is-flex-direction-column is-align-items-center">
     <h1 class="is-size-3">{{ attraction.title }}</h1>
@@ -9,7 +10,7 @@
     {% if attraction.attraction_pic %}
 
     <img class="landscape-img mt-2 mb-4"
-    src="{{ attractionpost.attraction_pic.url }}">
+    src="{{ attraction.attraction_pic.url }}">
    
     {% else %}
     
