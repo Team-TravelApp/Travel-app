@@ -29,9 +29,9 @@ class Profile(models.Model):
 
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE,default='',unique=True)
     bio = models.TextField(max_length=200, null=True, blank=True)
-    gender=models.CharField(max_length=100,choices=GENDER_CHOICES, null=True)
+    # gender=models.CharField(max_length=100,choices=GENDER_CHOICES, null=True)
     profile_pic = models.ImageField(default='default.jpg', upload_to='images/profile_pics/')
-    home_country = models.CharField(max_length=30,null=True,blank=True)
+    home_country = CountryField(blank_label='(select country', blank=True, null=True)
     followers = models.ManyToManyField(CustomUser, blank=True, related_name='followers')
 
     ''' followers = 
