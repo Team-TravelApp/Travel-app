@@ -12,8 +12,8 @@
     <h1>{{ profile.user }}</h1>
     <p> Bio {{ profile.bio }} </p>
     <p> Home Country {{ profile.home_country }} </p>
-    <p> Website {{profile.website_url}} </p>
-    <p> Social Media {{profile.social_url}} </p>
+    <p> Website {{profile.website_url|urlize}} </p>
+    <p> Social Media {{profile.social_url|urlize}} </p>
 
 </br>
 
