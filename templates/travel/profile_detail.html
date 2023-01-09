@@ -2,20 +2,71 @@
 {% load static %}
 
 {% block content %}
+</br>
     <button><a href="{% url 'profileedit' pk=user.pk %}">EDIT PROFILE</a></button>
+</br>
     <a href="{% url 'index' %}">Home</a>
+</br>
     <button>
         <a href="{% url 'add_attraction' %}">
        Add a new attraction</a>
    </button>
+</br>
     
     <p> {{ profile.profile_pic }}</p>
     <h1>{{ profile.user }}</h1>
-    </br>
     <p> Bio: {{ profile.bio }} </p>
     <p> Home Country: {{ profile.home_country }} </p>
     <p> Gender: {{ profile.gender }} </p>
-    <p> Followers: {{ profile.followers }} </p>
     <p> Website: {{profile.website_url}} </p>
     <p> Social Media : {{profile.social_url}} </p>
-{% endblock %}
+
+</br>
+</br>
+
+    {% for attraction in attractions %}
+    <div class="box is-flex is-flex-direction-column card is-justify-content-space-evenly is-align-items-center">
+        <figure class="image is-128x128">
+            <img src="https://bulma.io/images/placeholders/128x128.png" />
+        </figure>
+    
+        <div>
+            <h5 class="is-size-5 has-text-weight-bold mb-2 mt-2" style="color: #084a5e">
+                {{ attraction.title }}
+            </h5>
+    
+            <span class="is-flex icn">
+                <i class="fa-solid fa-user mr-2"></i>
+                <p><strong>Author</strong> <a href="{% url 'profile_detail' pk=attraction.user.pk %}">{{attraction.user.username}}</a></p>
+            </span>
+            <span class="is-flex is-align-items-center icn">
+                <i class="fa-solid fa-globe mr-2"></i>
+                <p><strong>Country</strong> {{ attraction.country }}</p>
+            </span>
+    
+            <span class="is-flex is-align-items-center icn">
+                <i class="fa-solid fa-earth-asia mr-2"></i>
+                <p><strong>Continent</strong> {{ attraction.continent }}</p>
+            </span>
+    
+            <span class="is-flex mt-2">
+                <p><strong>Rating</strong>{% for x in attraction.star_rating %} <span>★</span> {% endfor %} / 5 Stars</p>
+            </span>
+            <span class="is-flex is-align-items-center icn">
+                <i class="fa-solid fa-tag mr-2"></i>
+                <p>Tag: {{ attraction.tags }}</p>
+            </span>
+            <button class="button mt-2">
+                <a href="{% url 'attraction_details' attraction.pk %}">See More</a>
+            </button>
+    
+            
+    
+        </div>
+    </div>
+    {% endfor %} 
+
+
+    {% endblock %}
+
+<!--<p> Followers: {{ profile.followers }} </p>

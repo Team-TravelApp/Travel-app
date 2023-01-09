@@ -41,7 +41,6 @@ class AttractionPostForm(forms.ModelForm):
     class Meta:
         model = AttractionPost
         fields = [
-            'user',
             'title',
             'country',
             'continent',
