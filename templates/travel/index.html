@@ -1,54 +1,63 @@
 {% extends 'base.html' %}
- {% block content %} 
+{% block content %}
 
-</br>
-</br>
-
- <form method='GET' action='{% url "search" %}'>
-    <input type='text' name='q' placeholder="Search for a place" value='{{ request.GET.q }}' id='intry'>
-    <input type='submit' value='Search' class='button_1' id='sub1'>
+<div style="margin-top: 150px;" class="is-flex is-flex-direction-column">
+<form class="is-flex is-flex-direction-column is-align-content-flex-end" method='GET'
+    action='{% url "search" %}'>
+    <input class="input mt-6" type='text' name='q' placeholder="Search attraction by title"
+        value='{{ request.GET.q }}' id='intry'>
+    <button style="background-color: #c67006 !important; color: white !important;" class="button mt-2" type='submit' value='Search' class='button_1' id='sub1'>Search</button>
 </form>
 
-</br>
 
 {% if user.is_authenticated %}
- <button>
-    <a href="{% url 'add_attraction' %}">
-   Add a new attraction</a>
+<button style="background-color: #084a5e !important;" class="button mt-3 mb-3">
+    <a style="color: white" href="{% url 'add_attraction' %}">
+        Add New Attraction</a>
 </button>
 {% endif %}
-
-</br>
+</div>
 
 {% if attractions|length == 0 %}
 <div>No attractions in feed.</div>
-{% else %} 
+{% else %}
 
 {% for attraction in attractions %}
-<div class="box is-flex is-flex-direction-column card is-justify-content-space-evenly is-align-items-center">
-    
-    {% if attraction.attraction_pic %}
-   
-    <figure class="image is-128x128">
-        <img src="{{ attraction.attraction_pic.url }}" />
-    </figure>
+<div class="box is-flex is-flex-direction-column card is-justify-content-space-evenly">
 
+    {% if attraction.attraction_pic %}
+
+    <div style="margin: 0 auto;">
+        <figure class="image is-128x128" >
+            <img src="{{ attraction.attraction_pic.url }}" />
+        </figure>
+
+        <h5 class="is-size-5 has-text-weight-bold mb-2 mt-2"
+        style="color: #084a5e; margin: 0 auto;">
+        {{ attraction.title }}
+    </h5>
+    </div>
     {% else %}
 
-     <figure class="image is-128x128">
-        <img src="https://bulma.io/images/placeholders/128x128.png" />
-    </figure>
+    <div style="margin: 0 auto;">
+        <figure class="image is-128x128">
+            <img src="https://bulma.io/images/placeholders/128x128.png" />
+        </figure>
 
+        <h5 class="is-size-5 has-text-weight-bold mb-2 mt-2"
+        style="color: #084a5e !important; margin: 0 auto;">
+        {{ attraction.title }}
+    </h5>
+    </div>
     {% endif %}
 
     <div>
-        <h5 class="is-size-5 has-text-weight-bold mb-2 mt-2" style="color: #084a5e">
-            {{ attraction.title }}
-        </h5>
 
         <span class="is-flex icn">
             <i class="fa-solid fa-user mr-2"></i>
-            <p><strong>Author</strong> <a href="{% url 'profile_detail' pk=attraction.user.pk %}">{{attraction.user.username}}</a></p>
+            <p><strong>Author</strong> <a style="color: #084a5e !important;"
+                    href="{% url 'profile_detail' pk=attraction.user.pk %}">{{attraction.user.username}}</a>
+            </p>
         </span>
         <span class="is-flex is-align-items-center icn">
             <i class="fa-solid fa-globe mr-2"></i>
@@ -59,23 +68,23 @@
             <i class="fa-solid fa-earth-asia mr-2"></i>
             <p><strong>Continent</strong> {{ attraction.continent }}</p>
         </span>
-
-        <span class="is-flex mt-2">
-            <p><strong>Rating</strong>{% for x in attraction.star_rating %} <span>★</span> {% endfor %} / 5 Stars</p>
-        </span>
         <span class="is-flex is-align-items-center icn">
             <i class="fa-solid fa-tag mr-2"></i>
-            <p>Tag: {{ attraction.tags }}</p>
+            <p><strong>Tags</strong> {{ attraction.tags }}</p>
         </span>
-        <button class="button mt-2">
-            <a href="{% url 'attraction_details' attraction.pk %}">See More</a>
-        </button>
 
-        
+        <span class="is-flex mt-2">
+            <p><strong>Rating</strong>{% for x in attraction.star_rating %} <span
+                    style="color: #C67006">★</span>
+                {% endfor %} / 5 Stars</p>
+        </span>
 
     </div>
+    <button class="button mt-3" style="background-color: #084a5e !important;">
+        <a style="color: white;" href="{% url 'attraction_details' attraction.pk %}">See More</a>
+    </button>
 </div>
-{% endfor %} 
+{% endfor %}
 
-{% endif %} 
+{% endif %}
 {% endblock %}
