@@ -34,9 +34,11 @@
         action="{% url 'attraction_details' pk=attraction.pk %}" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
+    {% if user.is_authenticated %}
     <button style="color: #084a5e !important;" class="button mb-2" type="submit"><i
             class="fa-regular fa-heart"></i>&nbsp; Add To
         Favorites</button>
+    {% endif %}
     </form>
 
     <!-- attraction content -->
