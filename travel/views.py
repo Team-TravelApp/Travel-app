@@ -224,7 +224,7 @@ def attraction_details(request, pk):
         form = FavoriteForm()
         attraction = AttractionPost.objects.get(pk=pk)
         
-    return render(request, "travel/attraction_details.html", {"attraction": attraction, 'form': form, "comments":comments})    
+    return render(request, "travel/attraction_details.html", {"attraction": attraction, 'form': form, "comments": comments})    
 
 @login_required
 def add_comment(request,pk):
