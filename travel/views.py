@@ -160,18 +160,19 @@ def tagged(request,slug):
 
 
 @login_required
-def add_like(request, pk):
-    attraction = get_object_or_404(AttractionPost, pk=pk)
-    likes = AttractionPost.objects.filter(attraction=attraction)
+def add_like(request, attraction_pk):
+    attraction = get_object_or_404(AttractionPost, pk=attraction_pk)
     user = request.user
-    attraction.likes.add(user)
+    like, created = Like.objects.get_or_create(attraction=attraction, user=user)
+    numoflikes = attraction.likes.count()
+    
     context = {
         'attraction': attraction,
-        'likes': likes,
         'user': user,
+        'numoflikes': numoflikes,
         }
 
-    return render(request, 'travel/attraction_detail.html', context)
+    return render(request, 'travel/attraction_details.html', context)
     #return HttpResponseRedirect(reverse('travel/attraction_detail.html', args=[str(pk)]))
 
     

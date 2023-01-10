@@ -48,7 +48,7 @@ urlpatterns = [
     path('profile/<int:pk>/delete', views.profile_delete, name='profiledelete'),
     path('search', views.search, name='search'),
     path('display_attraction_pic', views.display_attraction_pic, name='display_attraction_pic'),
-     path('add_like', views.add_like, name='add_like'),
+    path('add_like/<int:attraction_pk>', views.add_like, name='add_like'),
 
     
     path('api/', include(router.urls)),
