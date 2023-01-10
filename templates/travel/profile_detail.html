@@ -5,10 +5,20 @@
 
 
 
-
+    {% if profile.profile_pic %}
 </br>
+    <figure class="image is-128x128">
+        <img src="{{ profile.profile_pic.url }}">
+    </figure>
     
-    <p> {{ profile.profile_pic }}</p>
+    {% else %}
+
+    <figure class="image is-128x128">
+            <img src="https://bulma.io/images/placeholders/128x128.png">
+        </figure>
+
+    {% endif %}
+
     <h1>{{ profile.user }}</h1>
     <p> Bio {{ profile.bio }} </p>
     <p> Home Country {{ profile.home_country }} </p>
