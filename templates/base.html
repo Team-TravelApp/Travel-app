@@ -9,33 +9,25 @@
     <title>THE TRAVELIST</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="/static/css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600;700&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
     <header>
         <nav class="navbar is-flex is-justify-content-space-between is-align-items-center p-5">
-            <a href="/"> 
+            <a href="/">
                 <div class="is-flex is-fullwidth is-align-items-center">
-                <img width="45px" src="/static/images/logo.png">
-                <p class="is-size-6 has-text-weight-bold"><span style="color: white">THE TRAVE</span><span
-                        style="color: #C67006">LIST</span></p>
+                    <img width="35px" src="/static/images/logo.png">
+                    <p class="has-text-weight-bold"><span style="color: white; font-size: 13px;">THE
+                            TRAVE</span><span style="color: #C67006; font-size: 13px;">LIST</span></p>
                 </div>
-             </a>
+            </a>
             </div>
-
-           
-
-            <a href="{% url 'profile_create' %}"><i class="fa-solid fa-user-plus"></i></a>
-
-            {% if user.is_authenticated %}
-            <a href="{% url 'add_attraction' %}"><i class="fa-solid fa-plus"></i></a>
-            <a href="{% url 'profile_detail' pk=user.pk %}"><i class="fa-solid fa-user"></i></a>
-            
-            {% endif %}
 
             <div class="is-flex">
                 <span class="is-flex is-align-items-center icn">
@@ -43,27 +35,32 @@
                 </span>
                 {% if user.is_authenticated %}
                 <span class="is-flex is-align-items-center icn">
-
-                    <a href={% url 'auth_logout' %}> <i class="fa-solid fa-right-from-bracket"></i></a>
+                    <a href="{% url 'add_attraction' %}"><i class="fa-solid fa-plus"></i></a>
+                </span>
+                <span class="is-flex is-align-items-center icn">
+                    <a href="{% url 'profile_create' %}"><i class="fa-solid fa-gear"></i></a>
+                </span>
+                <span class="is-flex is-align-items-center icn">
+                    <a href="{% url 'profile_detail' pk=user.pk %}"><i class="fa-solid fa-user"></i></a>
+                </span>
+                <span class="is-flex is-align-items-center icn">
+                    <a href={% url 'auth_logout' %}> <i
+                            class="fa-solid fa-right-from-bracket"></i></a>
                     <span class="is-flex is-align-items-center">
                         {% else %}
                         <span class="is-flex is-align-items-center icn">
-
-                            <a href={% url 'registration_register' %}><i class="fa-solid fa-user-plus"></i></a>
+                            <a href={% url 'registration_register' %}><i
+                                    class="fa-solid fa-user-plus"></i></a>
                         </span>
                         <span class="is-flex is-align-items-center icn">
-
                             <a href={% url 'auth_login' %}><i class="fa-solid fa-right-to-bracket"></i></a>
                         </span>
             </div>
             {% endif %}
-            
-
-        
-
         </nav>
     </header>
-    <div class="container is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
+    <div
+        class="container is-flex is-flex-direction-column is-justify-content-center is-align-items-center is-justify-content-center">
         {% block content %}
         {% endblock %}
     </div>
