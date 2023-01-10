@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.defaultfilters import slugify
-from .models import AttractionPost, Following, Favorite, Comment, Profile, CustomUser
+from .models import AttractionPost, Following, Favorite, Comment, Profile, CustomUser, Like
 from .forms import CommentForm, AttractionPostForm, FavoriteForm, ProfileForm
 from taggit.models import Tag
 from django.contrib.auth.decorators import login_required
@@ -157,12 +157,41 @@ def tagged(request,slug):
     }
     return render(request, 'index.html', context)
 
+
+
+@login_required
+def add_like(request, attraction_pk):
+    attraction = get_object_or_404(AttractionPost, pk=attraction_pk)
+    user = request.user
+    like, created = Like.objects.get_or_create(attraction=attraction, user=user)
+    numoflikes = attraction.likes.count()
+    
+    context = {
+        'attraction': attraction,
+        'user': user,
+        'numoflikes': numoflikes,
+        }
+
+    return render(request, 'travel/attraction_details.html', context)
+    #return HttpResponseRedirect(reverse('travel/attraction_detail.html', args=[str(pk)]))
+
+    
+
+def index(request): 
+    attractions = AttractionPost.objects.all()
+    likes = Like.objects.all()
+    user = request.user
+    form = AttractionPostForm()
+    return render(request, 'travel/index.html', {'attractions': attractions, 'likes':likes, 'user': user, 'form': form})
+
+
+'''
 def index(request): 
     attractions = AttractionPost.objects.all()
     user = request.user
     form = AttractionPostForm()
     return render(request, 'travel/index.html', {'attractions': attractions, 'user': user, 'form': form})
-
+'''
 
 def attractions_by_favorite(request):
      favorites=Favorite.objects.filter(user=request.user)

@@ -88,6 +88,15 @@ class AttractionPost(models.Model):
     class Meta:
         ordering = ['-created_at']
 
+
+class Like(models.Model):
+    attraction = models.ForeignKey(AttractionPost, on_delete=models.CASCADE, related_name='likes')
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='likes')
+
+    def __str__(self):
+        return f'{self.user.username}@{self.attraction.user}'
+        
+
 class Comment(models.Model): 
     comment_owner = models.ForeignKey(CustomUser,on_delete=models.CASCADE, related_name = 'comments')
     attraction = models.ForeignKey(AttractionPost,on_delete=models.CASCADE, related_name = 'comments', null=True, blank=True)
