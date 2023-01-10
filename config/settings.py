@@ -173,14 +173,13 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         ),
 }   
-SIMPLE_JWT = {
-   'AUTH_HEADER_TYPES': ('JWT',),
-} 
+
 
 INTERNAL_IPS = [
     # ...
     "127.0.0.1",
     # ...
 ]
-SIMPLE_BACKEND_REDIRECT_URL = '/'
+SIMPLE_BACKEND_REDIRECT_URL = 'profile_create'
 LOGIN_REDIRECT_URL = 'index'
+

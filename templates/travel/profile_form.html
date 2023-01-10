@@ -3,7 +3,7 @@
 
 <h3 class="mb-3"><strong style="color: #084a5e !important">Make a profile</strong></h3>
 
-<form class="box" action="{% url 'add_attraction' %}" method="POST" enctype="multipart/form-data">
+<form class="box" action="{% url 'profile_create' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {% csrf_token %}
     {% for hidden in form.hidden_fields %}
