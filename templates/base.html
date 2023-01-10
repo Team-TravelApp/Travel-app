@@ -29,17 +29,15 @@
             </a>
             </div>
 
-            <div class="is-flex">
+            <div class="is-flex" id="feed">
                 <span class="is-flex is-align-items-center icn">
-                    <a href="/"><i class="fa-solid fa-house"></i></a>
+                    <a href="{% url 'index' %}"><i class="fa-solid fa-house"></i></a>
                 </span>
                 {% if user.is_authenticated %}
                 <span class="is-flex is-align-items-center icn">
                     <a href="{% url 'add_attraction' %}"><i class="fa-solid fa-plus"></i></a>
                 </span>
-                <span class="is-flex is-align-items-center icn">
-                    <a href="{% url 'profile_create' %}"><i class="fa-solid fa-gear"></i></a>
-                </span>
+                
                 <span class="is-flex is-align-items-center icn">
                     <a href="{% url 'profile_detail' pk=user.pk %}"><i class="fa-solid fa-user"></i></a>
                 </span>
