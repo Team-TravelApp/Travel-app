@@ -4,32 +4,17 @@
 
 {% block content %}
 <div class="is-flex is-flex-direction-column is-align-items-center">
-<<<<<<< HEAD
     <h1 class="is-size-3">{{ attraction.title }}</h1>
-    <div class="is-flex">
-        <form action="{% url 'attraction_details' pk=attraction.pk %}" method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="favorite"><i class="fa-regular fa-heart"></i>  ADD TO FAVORITES </button>
-        </form>
-    </div>
-
-    
-    <!-- attraction image -->
-    {% if attraction.attraction_pic %}
-</br>
-    <img class="landscape-img mt-2 mb-4"
-    src="{{ attraction.attraction_pic.url }}">
-   
-=======
-    <span style="color: #084a5e !important;"><h1 class="is-size-3">{{ attraction.title }}</h1></span>
 
     <!-- attraction image -->
     {% if attraction.attraction_pic %}
 
     <img class="landscape-img mt-2 mb-4" src="{{ attraction.attraction_pic.url }}">
 
->>>>>>> 5280ed4 (Standardize styles accross application templates)
+    <span style="color: #084a5e !important;">
+        <h1 class="is-size-3">{{ attraction.title }}</h1>
+    </span>
+
     {% else %}
 
     <img class="landscape-img mt-2 mb-4"
@@ -37,70 +22,55 @@
 
     {% endif %}
 
-    <div>
-        {% if attraction.user == request.user and user.is_authenticated %}
-        <a href="{% url 'attractionedit' pk=attraction.pk %}"><i class="fa-solid fa-pen-to-square"></i></a>
-        <a href="{% url 'attractiondelete' pk=attraction.pk %}"><i class="fa-solid fa-trash"></i></a>
-        {% else %}
-        <p class="has-text-grey-light"><i class="fa-solid fa-pen-to-square"></i></p>
-        <p class="has-text-grey-light"><i class="fa-solid fa-trash"></i></p>
-        {% endif %}
-    </div>
-    </br
-    {{ attraction_owner }}
-    {{ edit_enabled }}
-
-    <form action="{% url 'attraction_details' pk=attraction.pk %}" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button style="color: #084a5e !important;" class="button mb-2" type="submit"><i class="fa-regular fa-heart"></i>&nbsp; Add To
-            Favorites</button>
+   <form
+        action="{% url 'attraction_details' pk=attraction.pk %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button style="color: #084a5e !important;" class="button mb-2" type="submit"><i
+            class="fa-regular fa-heart"></i>&nbsp; Add To
+        Favorites</button>
     </form>
 
     <!-- attraction content -->
-    <div class="box attraction-details-box mb-6">
+    <div class="box mb-6 attraction-details-box">
         <div class="is-flex is-justify-content-space-between mb-6">
-            <div>
-                <span class="is-flex">
-                    <p>
-                        <strong>Country</strong>
-                        {{ attraction.country }}
-                    </p>
-                </span>
-                <span class="is-flex">
+            <div class="is-flex is-flex-direction-column">
+                    <span class="is-flex icn">
+                        <i class="fa-solid fa-user mr-2"></i>
+                        <p><strong>Author</strong> <a style="color: #084a5e !important;"
+                                href="{% url 'profile_detail' pk=attraction.user.pk %}">{{attraction.user.username}}</a>
+                        </p>
+                    </span>
+                    <span class="is-flex is-align-items-center icn">
+                        <i class="fa-solid fa-globe mr-2"></i>
+                        <p><strong>Country</strong> {{ attraction.country }}</p>
+                    </span>
+
+                    <span class="is-flex is-align-items-center icn">
+                        <i class="fa-solid fa-earth-asia mr-2"></i>
+                        <p><strong>Continent</strong> {{ attraction.continent }}</p>
+                    </span>
+                    <span class="is-flex is-align-items-center icn">
+                        <i class="fa-solid fa-tag mr-2"></i>
+                        <p><strong>Tags</strong> {{ attraction.tags }}</p>
+                    </span>
+
+                    <span class="is-flex mt-2">
+                        <p><strong>Rating</strong>{% for x in attraction.star_rating %} <span
+                                style="color: #C67006">★</span>
+                            {% endfor %} / 5 Stars</p>
+                    </span>
                     
-                <span class="is-flex icn">
-                    <i class="fa-solid fa-user mr-2"></i>
-                    <p><strong>Author</strong> <a
-                            style="color: #084a5e !important;"
-                            href="{% url 'profile_detail' pk=attraction.user.pk %}">{{attraction.user.username}}</a>
-                    </p>
-                </span>
-                <span class="is-flex is-align-items-center icn">
-                    <i class="fa-solid fa-globe mr-2"></i>
-                    <p><strong>Country</strong> {{ attraction.country }}</p>
-                </span>
-
-                <span class="is-flex is-align-items-center icn">
-                    <i class="fa-solid fa-earth-asia mr-2"></i>
-                    <p><strong>Continent</strong> {{ attraction.continent }}</p>
-                </span>
-
-                <span class="is-flex mt-2">
-                    <p><strong>Rating</strong>{% for x in attraction.star_rating %} <span
-                            style="color: #C67006">★</span>
-                        {% endfor %} / 5 Stars</p>
-                </span>
             </div>
 
             <!-- edit/delete icons -->
-
-            
             <div>
                 {% if attraction.user == request.user and user.is_authenticated %}
-                <a style="color: #084a5e !important;" href="{% url 'attractionedit' pk=attraction.pk %}"><i
+                <a style="color: #084a5e !important;"
+                    href="{% url 'attractionedit' pk=attraction.pk %}"><i
                         class="fa-solid fa-pen-to-square"></i></a>
-                <a style="color: #084a5e !important;" href="{% url 'attractiondelete' pk=attraction.pk %}"><i
+                <a style="color: #084a5e !important;"
+                    href="{% url 'attractiondelete' pk=attraction.pk %}"><i
                         class="fa-solid fa-trash"></i></a>
                 {% else %}
                 <i class="fa-solid fa-pen-to-square has-text-grey-light"></i>
@@ -111,7 +81,7 @@
 
         <div class="mb-6">
             <strong>
-                <p><i class="fa-solid fa-earth-asia"></i> Details </p>
+                <p>Details </p>
             </strong>
             {% if attraction.description %}
             <p> {{ attraction.description }}</p>
@@ -127,7 +97,8 @@
             <strong>Comments</strong>
             {% if user.is_authenticated %}
             <div class="is-flex">
-                <a style="color: #084a5e !important;" class="mr-2" href="{% url 'add_comment' attraction.pk %}">
+                <a style="color: #084a5e !important;" class="mr-2"
+                    href="{% url 'add_comment' attraction.pk %}">
                     <i class="fa-solid fa-message"></i>
                 </a>
             </div>
@@ -159,5 +130,5 @@
             </div>
             {% endfor %}
         </div>
-        {% endif %}
-        {% endblock %}
+    {% endif %}
+{% endblock %}
