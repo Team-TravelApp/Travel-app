@@ -1,11 +1,12 @@
 {% extends 'base.html' %} 
 
-{% block content %} 
-
+{% block content %}
+<div class="box is-flex is-flex-direction-column is-align-items-center">
 <h2>Are you sure you want to delete this attraction?</h2>
 
 <form method="POST">{% csrf_token %} 
-    <button type="submit">Delete</button>
+    <button type="submit" style="background-color: #084a5e !important; color: white" class="button">Delete</button>
 </form>
+</div>
 
 {% endblock %} 

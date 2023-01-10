@@ -1,13 +1,22 @@
 {% extends 'base.html' %}
-{% block content %}
+{% block content %} 
 
-<a href="{% url 'index' %}">Home</a>
+<h3 class="mb-3"><strong style="color: #084a5e !important">Edit Attraction</strong></h3>
 
-<h2>Edit Attraction:</h2>
-
-<form method ="post" enctype="multipart/form-data"> 
-    {% csrf_token %} 
-    {{ form.as_p }}
-    <button type="submit">Save</button>
+<form class="box" action="{% url 'add_attraction' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% csrf_token %}
+    {% for hidden in form.hidden_fields %}
+    {{ hidden }}
+    {% endfor %}
+    {% for field in form.visible_fields %}
+    <div class="mb-2">
+        <p class="label" style="color:#084a5e" >{{field.label}}</p>
+        {{field}}
+    </div>
+    {% endfor %}
+    <button  style="background-color: #c67006 !important; color: white;" class="button" type="submit">Submit!</button>
 </form>
+<button style="background-color: #084a5e !important" class="button"><a style="color: white" href="{% url 'index' %}">Cancel</button></a>
+
 {% endblock %} 
