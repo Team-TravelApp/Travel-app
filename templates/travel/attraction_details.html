@@ -16,6 +16,14 @@
     </span>
 
     {% else %}
+    
+    <form action="{% url 'add_like' attraction_pk=attraction.pk %}" method="POST">
+        {% csrf_token %}
+    <button type="submit", class="btn btn-primary btn-sm ">Like</button>
+        
+    </form>
+
+    <div class="numoflikes">Likes: {{ numoflikes }}</div>
 
     <img class="landscape-img mt-2 mb-4"
         src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80">

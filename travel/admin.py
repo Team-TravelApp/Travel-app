@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser, AttractionPost, Comment, Following, Favorite, Profile
+from .models import CustomUser, AttractionPost, Comment, Following, Favorite, Profile, Like
 from .forms import CustomUserCreationForm, CustomUserChangeForm, ProfileForm
 
 class CustomUserAdmin(UserAdmin):
@@ -15,6 +15,7 @@ class CustomUserAdmin(UserAdmin):
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Profile)
 admin.site.register(AttractionPost)
+admin.site.register(Like)
 admin.site.register(Comment)
 admin.site.register(Following)
 admin.site.register(Favorite)
