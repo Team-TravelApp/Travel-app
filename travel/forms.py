@@ -1,6 +1,7 @@
 from django import forms
 from .models import Comment, CustomUser, AttractionPost, Favorite, Profile
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.forms import ModelForm, TextInput, EmailInput
 
 
 
@@ -15,6 +16,24 @@ class ProfileForm(forms.ModelForm):
             'website_url',
             'social_url', 
         ]
+
+        widgets = {
+            'bio': TextInput(attrs={
+                'class': "textarea",
+                'style': 'max-width: 300px;',
+                'placeholder': 'Enter a bio!'
+                }),
+            'website_url': TextInput(attrs={
+                'class': "input", 
+                'style': 'max-width: 300px;',
+                'placeholder': 'Add website url'
+                }),
+            'social_url': TextInput(attrs={
+                'class': "input", 
+                'style': 'max-width: 300px;',
+                'placeholder': 'Add social media url'
+                })
+        }
 
 
 
@@ -47,8 +66,30 @@ class AttractionPostForm(forms.ModelForm):
             'interest_rating',
             'tags',
             'attraction_pic',
-            
         ]
+
+        widgets = {
+            'title': TextInput(attrs={
+                'class': "input",
+                'style': 'max-width: 300px;',
+                'placeholder': 'title'
+                }),
+            'description': TextInput(attrs={
+                'class': "input", 
+                'style': 'max-width: 300px;',
+                'placeholder': 'description'
+                }),
+            'interest_rating': TextInput(attrs={
+                'class': "input", 
+                'style': 'max-width: 300px;',
+                'placeholder': 'Add rating of 1-5'
+                }),
+            'tags': TextInput(attrs={
+                'class': "input", 
+                'style': 'max-width: 300px;',
+                'placeholder': 'tags'
+                })
+        }
         
 class FavoriteForm(forms.ModelForm):
     class Meta:

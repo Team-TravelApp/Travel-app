@@ -6,12 +6,12 @@
     action='{% url "search" %}'>
     <input class="input mt-6" type='text' name='q' placeholder="Search attraction by title"
         value='{{ request.GET.q }}' id='intry'>
-    <button style="background-color: #084a5e !important; color: white !important;" class="button mt-2" type='submit' value='Search' class='button_1' id='sub1'>Search</button>
+    <button style="background-color: #c67006 !important; color: white !important;" class="button mt-2" type='submit' value='Search' class='button_1' id='sub1'>Search</button>
 </form>
 
 
 {% if user.is_authenticated %}
-<button style="background-color: #084a5e !important;"class="button mt-3 mb-3">
+<button style="background-color: #084a5e !important;" class="button mt-3 mb-3">
     <a style="color: white" href="{% url 'add_attraction' %}">
         Add New Attraction</a>
 </button>
@@ -80,8 +80,8 @@
         </span>
 
     </div>
-    <button class="button mt-3">
-        <a href="{% url 'attraction_details' attraction.pk %}">See More</a>
+    <button class="button mt-3" style="background-color: #084a5e !important;">
+        <a style="color: white;" href="{% url 'attraction_details' attraction.pk %}">See More</a>
     </button>
 </div>
 {% endfor %}
