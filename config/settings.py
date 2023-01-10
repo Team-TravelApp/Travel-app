@@ -58,7 +58,6 @@ INSTALLED_APPS = [
     'django_countries',
     'taggit',
     'api',
-    'storages',
     
 ]
 
