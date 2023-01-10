@@ -29,9 +29,20 @@
 
     {% for attraction in attractions %}
     <div class="box is-flex is-flex-direction-column card is-justify-content-space-evenly is-align-items-center">
+        
+        {% if attraction.attraction_pic %}
+        
         <figure class="image is-128x128">
-            <img src="https://bulma.io/images/placeholders/128x128.png" />
+            <img src="{{ attraction.attraction_pic.url }}">
         </figure>
+
+        {% else %}
+
+        <figure class="image is-128x128">
+            <img src="https://bulma.io/images/placeholders/128x128.png">
+        </figure>
+
+        {% endif %}
     
         <div>
             <h5 class="is-size-5 has-text-weight-bold mb-2 mt-2" style="color: #084a5e">
